@@ -1,6 +1,7 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.12)
 project(flightgearInterpreter)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(flightgearInterpreter main.cpp)
+add_executable(flightgearInterpreter
+        main.cpp)
