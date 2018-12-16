@@ -4,4 +4,4 @@ project(flightgearInterpreter)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(flightgearInterpreter
-        main.cpp)
+        main.cpp DataReaderServer.cpp DataReaderServer.h)
