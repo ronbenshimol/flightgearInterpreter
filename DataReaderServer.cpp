@@ -1,23 +1,31 @@
 #include "DataReaderServer.h"
+#include "Utils.h"
+#include "SymbolsTable.h"
+#include <list>
 
-void DataReaderServer::openServer(){
+DataReaderServer::DataReaderServer(int serverPort, int numOfReadsPs){
+
+    this->serverPort = serverPort;
+    this->numOfReadsPs = numOfReadsPs;
+
+}
+
+void DataReaderServer::open(){
 
     std::cout << "starting server.." << std::endl;
 
-    int serverPort = 5400;
+    //int serverPort = 5400;
 
-    int sockedFd; // main socket fileDescriptor
+    int socketFd; // main socket fileDescriptor
     int newsockfd; // new socket fileDescriptor
     int clilen;
 
-    char buffer[1001];
     struct sockaddr_in serv_addr, cli_addr;
-    int  n;
 
     //creating socket object
-    sockedFd = socket(AF_INET, SOCK_STREAM, 0);
+    socketFd = socket(AF_INET, SOCK_STREAM, 0);
     //if creation faild
-    if (sockedFd < 0) {
+    if (socketFd < 0) {
         perror("ERROR opening socket");
         exit(1);
     }
@@ -30,7 +38,7 @@ void DataReaderServer::openServer(){
     serv_addr.sin_port = htons(serverPort); //init server port
 
     //bind the host address using bind() call
-    if (bind(sockedFd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+    if (bind(socketFd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         //if binding faild
         perror("ERROR on binding");
         exit(1);
@@ -39,11 +47,11 @@ void DataReaderServer::openServer(){
     std::cout << "listening..." << std::endl;
 
     //start listening for the clients using the main socket
-    listen(sockedFd,5);
+    listen(socketFd,5);
     clilen = sizeof(cli_addr);
 
     //accept actual connection from the client
-    newsockfd = accept(sockedFd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
+    newsockfd = accept(socketFd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
 
     std::cout << "connected to client!" << std::endl;
 
@@ -54,20 +62,78 @@ void DataReaderServer::openServer(){
     }
 
 
-    while(true){
+    std::string dataStr;
 
-        //if connection is established then start communicating
-        bzero(buffer,1001);
-        n = read(newsockfd,buffer,1000);
+    while(1)
+    {
+        char buf[1024];
+        int numBytesRead = recv(newsockfd, buf, sizeof(buf), 0);
+        if (numBytesRead > 0)
+        {
+            for (int i=0; i<numBytesRead; i++)
+            {
+                char c = buf[i];
+                if (c == '\n')
+                {
+                    if (dataStr.length() > 0)
+                    {
+                        //std::cout << "new data received: " << dataStr << std::endl;
 
-        if (n < 0) {
-            perror("ERROR reading from socket");
-            exit(1);
+                        //separate values by csv format from string
+                        std::vector<std::string> values = Utils::explode(dataStr,',');
+
+                        updateSymbolsValues(values);
+
+                        dataStr = "";
+                    }
+                }
+                else dataStr += c;
+            }
         }
+        else
+        {
+            std::cout << "Socket closed or socket error!" << std::endl;
+            break;
+        }
+    }
 
-        std::cout << "Here is the message:   " << buffer << std::endl;
+}
+
+void DataReaderServer::updateSymbolsValues(std::vector<std::string> valuesVec){
+
+    std::string paths[23] = {
+            "/instrumentation/airspeed-indicator/indicated-speed-kt",
+            "/instrumentation/altimeter/indicated-altitude-ft",
+            "/instrumentation/altimeter/pressure-alt-ft",
+            "/instrumentation/attitude-indicator/indicated-pitch-deg",
+            "/instrumentation/attitude-indicator/indicated-roll-deg",
+            "/instrumentation/attitude-indicator/internal-pitch-deg",
+            "/instrumentation/attitude-indicator/internal-roll-deg",
+            "/instrumentation/encoder/indicated-altitude-ft",
+            "/instrumentation/encoder/pressure-alt-ft",
+            "/instrumentation/gps/indicated-altitude-ft",
+            "/instrumentation/gps/indicated-ground-speed-kt",
+            "/instrumentation/gps/indicated-vertical-speed",
+            "/instrumentation/heading-indicator/indicated-heading-deg",
+            "/instrumentation/magnetic-compass/indicated-heading-deg",
+            "/instrumentation/slip-skid-ball/indicated-slip-skid",
+            "/instrumentation/turn-indicator/indicated-turn-rate",
+            "/instrumentation/vertical-speed-indicator/indicated-speed-fpm",
+            "/controls/flight/aileron",
+            "/controls/flight/elevator",
+            "/controls/flight/rudder",
+            "/controls/flight/flaps",
+            "/controls/engines/engine/throttle",
+            "/engines/engine/rpm"
+    };
+
+
+    for (int i = 0; i < valuesVec.size(); ++i) {
+
+        SymbolsTable::getInstance() -> setSymbol(paths[i], std::atof(valuesVec[i].c_str()));
 
     }
 
-
 }
+
+

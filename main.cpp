@@ -5,8 +5,8 @@
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-//    DataReaderServer server;
-//    server.openServer();
+    //DataReaderServer server(5400,10);
+    //server.open();
 
     return 0;
 }

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include <netdb.h>
 #include <unistd.h>
@@ -16,13 +17,16 @@
 class DataReaderServer {
 
 private:
-    //int serverPort;
-    //std::string serverIp;
+    int serverPort;
+    int numOfReadsPs;
+
+    void updateSymbolsValues(std::vector<std::string> valuesVec);
+
 
 public:
-    //DataReaderServer();
-    void openServer();
-    //void closeServer();
+    DataReaderServer(int serverPort, int numOfReadsPs);
+    void open();
+    void close();
 };
 
 
