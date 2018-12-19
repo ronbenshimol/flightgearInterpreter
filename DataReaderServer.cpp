@@ -3,6 +3,8 @@
 #include "SymbolsTable.h"
 #include <list>
 
+#include <unistd.h>
+
 DataReaderServer::DataReaderServer(int serverPort, int numOfReadsPs){
 
     this->serverPort = serverPort;
@@ -10,7 +12,7 @@ DataReaderServer::DataReaderServer(int serverPort, int numOfReadsPs){
 
 }
 
-void DataReaderServer::open(){
+void DataReaderServer::openServer(){
 
     std::cout << "starting server.." << std::endl;
 
@@ -29,6 +31,8 @@ void DataReaderServer::open(){
         perror("ERROR opening socket");
         exit(1);
     }
+
+    opennedSockets.push_back(socketFd);
 
     //Initialize socket structure
     bzero((char *) &serv_addr, sizeof(serv_addr));
@@ -52,6 +56,8 @@ void DataReaderServer::open(){
 
     //accept actual connection from the client
     newsockfd = accept(socketFd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
+
+    opennedSockets.push_back(newsockfd);
 
     std::cout << "connected to client!" << std::endl;
 
@@ -101,39 +107,24 @@ void DataReaderServer::open(){
 
 void DataReaderServer::updateSymbolsValues(std::vector<std::string> valuesVec){
 
-    std::string paths[23] = {
-            "/instrumentation/airspeed-indicator/indicated-speed-kt",
-            "/instrumentation/altimeter/indicated-altitude-ft",
-            "/instrumentation/altimeter/pressure-alt-ft",
-            "/instrumentation/attitude-indicator/indicated-pitch-deg",
-            "/instrumentation/attitude-indicator/indicated-roll-deg",
-            "/instrumentation/attitude-indicator/internal-pitch-deg",
-            "/instrumentation/attitude-indicator/internal-roll-deg",
-            "/instrumentation/encoder/indicated-altitude-ft",
-            "/instrumentation/encoder/pressure-alt-ft",
-            "/instrumentation/gps/indicated-altitude-ft",
-            "/instrumentation/gps/indicated-ground-speed-kt",
-            "/instrumentation/gps/indicated-vertical-speed",
-            "/instrumentation/heading-indicator/indicated-heading-deg",
-            "/instrumentation/magnetic-compass/indicated-heading-deg",
-            "/instrumentation/slip-skid-ball/indicated-slip-skid",
-            "/instrumentation/turn-indicator/indicated-turn-rate",
-            "/instrumentation/vertical-speed-indicator/indicated-speed-fpm",
-            "/controls/flight/aileron",
-            "/controls/flight/elevator",
-            "/controls/flight/rudder",
-            "/controls/flight/flaps",
-            "/controls/engines/engine/throttle",
-            "/engines/engine/rpm"
-    };
-
-
     for (int i = 0; i < valuesVec.size(); ++i) {
 
-        SymbolsTable::getInstance() -> setSymbol(paths[i], std::atof(valuesVec[i].c_str()));
+        SymbolsTable::getInstance() -> updateLocalValueByPath(paths[i], std::atof(valuesVec[i].c_str()));
 
+        std::cout <<"-----------------" << std::endl;
+        SymbolsTable::getInstance() ->printSymbols();
     }
 
+}
+
+void DataReaderServer::closeServer(){
+
+    //TODO: check if working
+
+    //opennedSockets.
+    for (int c : opennedSockets) {
+        close(c);
+    }
 }
 
 

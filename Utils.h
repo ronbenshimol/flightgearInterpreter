@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-static class Utils {
+class Utils {
 public:
     static const std::vector<std::string> explode(std::string &s, const char &c);
 

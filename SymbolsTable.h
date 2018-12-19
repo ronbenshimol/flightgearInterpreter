@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <iostream>
 
 class SymbolsTable {
 
@@ -13,6 +14,7 @@ private:
     /* Private constructor to prevent instancing. */
     SymbolsTable();
 
+    //pathToSymbolMap format: <path,symbol>
     std::map<std::string, std::string> pathToSymbolMap;
     std::map<std::string, double> symbolsMap;
 
@@ -23,7 +25,8 @@ public:
     void setSymbol(std::string symbol, double value);
     double getValue(std::string symbol);
     void updateLocalValueByPath(std::string path, double value);
-
+    void bindSymbolToPath(std::string symbol, std::string path);
+    void printSymbols();
 
 
 };
