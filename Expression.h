@@ -11,7 +11,7 @@ class Expression {
 
 public:
 
-    virtual Expression *calculate() = 0;
+    virtual double calculate() = 0;
 
 };
 

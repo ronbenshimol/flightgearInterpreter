@@ -48,5 +48,6 @@ void SymbolsTable::printSymbols(){
         std::cout << elem.first << ": " << elem.second << "  ";
     }
 
+
     std::cout << std::endl;
 }

@@ -17,7 +17,7 @@ private:
     //pathToSymbolMap format: <path,symbol>
     std::map<std::string, std::string> pathToSymbolMap;
     std::map<std::string, double> symbolsMap;
-
+    
 public:
     /* Static access method. */
     static SymbolsTable *getInstance();
