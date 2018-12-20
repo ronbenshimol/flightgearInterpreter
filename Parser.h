@@ -8,11 +8,15 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "Expression.h"
-#include "Utils.h"
-
 #include <queue>
 #include <stack>
+
+#include "Expression.h"
+#include "Utils.h"
+#include "Plus.h"
+#include "Minus.h"
+#include "Multi.h"
+
 
 
 using namespace std;
@@ -25,8 +29,7 @@ class Parser {
 
     vector<string> toIndependentExpStrings(stack<string> tokensStack);
 
-    string getNextExpStr(queue<string> tokensQueue);
-
+    Expression* stringToMathExpression(stack<string> &tokens);
 
 public:
     //Parser();

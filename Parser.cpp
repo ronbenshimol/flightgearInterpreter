@@ -95,7 +95,31 @@ vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
 }
 
 
+Expression* Parser::stringToMathExpression(stack<string> &tokens){
 
+    string token = tokens.top();
+    tokens.pop();
+
+    if(token == "+"){
+        Expression* rightExp  = stringToMathExpression(tokens);
+        Expression* leftExp  = stringToMathExpression(tokens);
+
+        return new Plus(leftExp,rightExp);
+    } else if(token == "-"){
+        Expression* rightExp  = stringToMathExpression(tokens);
+        Expression* leftExp  = stringToMathExpression(tokens);
+
+        return new Minus(leftExp,rightExp);
+    } else if(token == "*"){
+        Expression* rightExp  = stringToMathExpression(tokens);
+        Expression* leftExp  = stringToMathExpression(tokens);
+
+        return new Multi(leftExp,rightExp);
+    }
+
+    //TODO: take care of Neg (-)
+
+}
 
 
 
