@@ -7,11 +7,14 @@
 
 #include "BinaryExpression.h"
 
-class Div : BinaryExpression {
+class Div : public BinaryExpression {
 
     double calculate(){
         return leftExpression->calculate() / rightExpression->calculate();
     }
+
+public:
+    Div(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression, rightExpression) {}
 
 };
 

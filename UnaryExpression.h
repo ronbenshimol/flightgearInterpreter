@@ -7,10 +7,11 @@
 
 #include "Expression.h"
 
-class UnaryExpression : Expression {
+class UnaryExpression : public Expression {
+
 protected:
     Expression* innerExpression;
-
+    UnaryExpression(Expression *innerExpression) : innerExpression(innerExpression) {} ;
 };
 
 

@@ -3,12 +3,15 @@
 
 #include "BinaryExpression.h"
 
-class Minus : BinaryExpression {
+class Minus : public BinaryExpression {
 
     double calculate(){
         return leftExpression->calculate() - rightExpression->calculate();
     }
 
+public:
+    Minus(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
+                                                                                      rightExpression) {}
 };
 
 

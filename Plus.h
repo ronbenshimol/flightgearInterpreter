@@ -4,11 +4,15 @@
 
 #include "BinaryExpression.h"
 
-class Plus : BinaryExpression {
+class Plus : public BinaryExpression {
 
     double calculate(){
         return leftExpression->calculate() + rightExpression->calculate();
     }
+
+public:
+    Plus(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression, rightExpression) {}
+
 
 };
 

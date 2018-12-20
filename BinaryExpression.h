@@ -3,12 +3,14 @@
 
 #include "Expression.h"
 
-class BinaryExpression : Expression {
+class BinaryExpression : public Expression {
 
 protected:
     Expression* leftExpression;
     Expression* rightExpression;
 
+    BinaryExpression(Expression *leftExpression, Expression *rightExpression) : leftExpression(leftExpression),
+                                                                                rightExpression(rightExpression) {}
 };
 
 #endif //FLIGHTGEARINTERPRETER_BINARYEXPRESSION_H

@@ -36,7 +36,7 @@ void Parser::parse(vector<string> lexed) {
     // vector of parameters to be parsed to expressions
     vector<string> independentExpStrings = toIndependentExpStrings(tokensStack);
 
-    string s = "bla";
+    string s = "cool";
     //TODO finish...
 
 }
