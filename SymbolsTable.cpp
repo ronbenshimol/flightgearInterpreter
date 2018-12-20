@@ -51,3 +51,7 @@ void SymbolsTable::printSymbols(){
 
     std::cout << std::endl;
 }
+
+bool  SymbolsTable::isSymbolExist(std::string symbol){
+    return symbol == "x";
+}

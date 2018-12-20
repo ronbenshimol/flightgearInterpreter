@@ -27,6 +27,7 @@ public:
     void updateLocalValueByPath(std::string path, double value);
     void bindSymbolToPath(std::string symbol, std::string path);
     void printSymbols();
+    bool  isSymbolExist(std::string symbol);
 
 
 };
