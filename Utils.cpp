@@ -29,5 +29,34 @@ bool Utils::isMathOperator(char c) {
 }
 
 bool Utils::isAnyOperator(char c) {
-    return isMathOperator(c) || c == '=' || c == '(' || c == ')' || c == ',';
+    return isMathOperator(c) || c == '=' || c == '(' || c == ')' || c == ',' || c == '\n';
 }
+
+bool Utils::isPreviousTokenExpectedOperator(char c) {
+    return isMathOperator(c) || c == '(' || c == ')';
+}
+
+bool Utils::isAnotherTokenExpectedOperator(char c) {
+    return (isMathOperator(c) || c == '(');
+}
+
+stack<string> Utils::fromVectorToStack(vector<string> vec) {
+
+    stack<string> retStack;
+    stack<string> tempStack;
+
+    //push to a stack
+    for(string s: vec)
+        tempStack.push(s);
+    //flips all using temp stack
+    while(!tempStack.empty()){
+        string cur = tempStack.top();
+        tempStack.pop();
+        retStack.push(cur);
+    }
+    //tokens stack is now in the correct order.
+
+    return retStack;
+
+}
+

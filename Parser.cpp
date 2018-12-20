@@ -29,21 +29,15 @@
 
 
 void Parser::parse(vector<string> lexed) {
-    stack<string> tokensStack;
-    stack<string> tempStack;
 
-    //push to a stack
-    for(string s: lexed)
-        tempStack.push(s);
-    //flips all using temp stack
-    while(!tempStack.empty()){
-        string cur = tempStack.top();
-        tempStack.pop();
-        tokensStack.push(cur);
-    }
+    stack<string> tokensStack = Utils::fromVectorToStack(lexed);
     //tokens stack is now in the correct order.
 
+    // vector of parameters to be parsed to expressions
     vector<string> independentExpStrings = toIndependentExpStrings(tokensStack);
+
+    string s = "bla";
+    //TODO finish...
 
 }
 
@@ -59,13 +53,13 @@ vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
     //TODO do
 
     vector<string> vecOnBuild;
-    //TODO free
+
     if (tokensStack.empty() || tokensStack.top() == "\n")
         return vecOnBuild;
 
     // loop on the different tokens
     string cur = "";
-
+    string next = "";
     while (tokensStack.top() != "\n") {
 
         string expStr = "";
@@ -74,20 +68,30 @@ vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
         while (!finishedIndependent) {
 
             cur = tokensStack.top();
+
             expStr.append(cur);
+            expStr.append(" ");
             tokensStack.pop();
+            next = tokensStack.top();
 
-            //if the len is 1 (only 1 char) and this char is any operator
-
-            // TODO check if previous was an operator that another token is expected afterwards
-            if (*(expStr.end())) {
-                // TODO add to exp
+            // check if cur was *not* an operator that another token is expected afterwards
+            bool isAnotherExpected = Utils::isAnotherTokenExpectedOperator(expStr.at(expStr.length() - 2));
+            bool isPrevExpected = next.length() == 1 && Utils::isPreviousTokenExpectedOperator(next.at(0));
+            if (isPrevExpected)
+                continue;
+            if (!(isAnotherExpected)){
+                finishedIndependent = true;
             }
 
         }
+        vecOnBuild.push_back(expStr);
     }
-    
-    return vecOnBuild;
+
+    vector<string> finalVec;
+    for(auto s: vecOnBuild)
+        finalVec.push_back(s.substr(0, s.length() - 1));
+
+    return finalVec;
 }
 
 

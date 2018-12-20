@@ -3,6 +3,9 @@
 
 #include <vector>
 #include <string>
+#include <stack>
+
+using namespace std;
 
 class Utils {
 
@@ -11,6 +14,11 @@ public:
 
     static bool isMathOperator(char c);
     static bool isAnyOperator(char c);
+    static bool isAnotherTokenExpectedOperator(char c);
+    static bool isPreviousTokenExpectedOperator(char c);
+
+
+    static stack<string> fromVectorToStack(vector<string> vec);
 
 };
 
