@@ -9,11 +9,14 @@
 #include "BinaryExpression.h"
 
 class Multi : public BinaryExpression {
+
+
+
+public:
     double calculate(){
         return leftExpression->calculate() * rightExpression->calculate();
     }
 
-public:
     Multi(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
                                                                                       rightExpression) {}
 };

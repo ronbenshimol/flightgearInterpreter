@@ -1,0 +1,25 @@
+//
+// Created by shaked on 12/20/18.
+//
+
+#ifndef FLIGHTGEARINTERPRETER_NUM_H
+#define FLIGHTGEARINTERPRETER_NUM_H
+
+
+#include "Expression.h"
+
+class Num : public Expression {
+
+    double value;
+
+public:
+    double calculate() override {
+        return value;
+    }
+
+    Num(double value) : value(value) {}
+
+};
+
+
+#endif //FLIGHTGEARINTERPRETER_NUM_H
