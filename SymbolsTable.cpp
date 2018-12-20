@@ -45,6 +45,8 @@ void SymbolsTable::bindSymbolToPath(std::string symbol, std::string path){
 void SymbolsTable::printSymbols(){
     for(auto elem : symbolsMap)
     {
-        std::cout << elem.first << ": " << elem.second << std::endl;
+        std::cout << elem.first << ": " << elem.second << "  ";
     }
+
+    std::cout << std::endl;
 }

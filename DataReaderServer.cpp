@@ -5,6 +5,23 @@
 
 #include <unistd.h>
 
+
+//std::thread serverThread([](int port, int numOfReadsPS){
+//
+//    DataReaderServer server(port,numOfReadsPS);
+//    server.openServer();
+//
+//},5400,10);
+//
+//
+//SymbolsTable::getInstance()-> bindSymbolToPath("rudder","/controls/flight/rudder");
+//SymbolsTable::getInstance()-> bindSymbolToPath("throttle","/controls/engines/engine/throttle");
+//
+//serverThread.join();
+
+
+
+
 DataReaderServer::DataReaderServer(int serverPort, int numOfReadsPs){
 
     this->serverPort = serverPort;
@@ -111,7 +128,6 @@ void DataReaderServer::updateSymbolsValues(std::vector<std::string> valuesVec){
 
         SymbolsTable::getInstance() -> updateLocalValueByPath(paths[i], std::atof(valuesVec[i].c_str()));
 
-        std::cout <<"-----------------" << std::endl;
         SymbolsTable::getInstance() ->printSymbols();
     }
 
