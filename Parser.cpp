@@ -50,7 +50,6 @@ void Parser::parse(vector<string> lexed) {
  * return : open , 3 + 4 , 5
  */
 vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
-    //TODO do
 
     vector<string> vecOnBuild;
 
@@ -76,8 +75,16 @@ vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
 
             // check if cur was *not* an operator that another token is expected afterwards
             bool isAnotherExpected = Utils::isAnotherTokenExpectedOperator(expStr.at(expStr.length() - 2));
-            bool isPrevExpected = next.length() == 1 && Utils::isPreviousTokenExpectedOperator(next.at(0));
-            if (isPrevExpected)
+            bool isPrevExpected;
+            // if exp is not a saved word
+            string checkSavedWord = expStr.substr(0, expStr.length() - 1);
+            if (!isProgramSavedWord(checkSavedWord)){
+                isPrevExpected = next.length() == 1 && Utils::isPreviousTokenExpectedOperator(next.at(0));
+            }else{
+                isPrevExpected = false;
+            }
+
+            if (isPrevExpected )
                 continue;
             if (!(isAnotherExpected)){
                 finishedIndependent = true;
@@ -91,8 +98,36 @@ vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
     for(auto s: vecOnBuild)
         finalVec.push_back(s.substr(0, s.length() - 1));
 
-    return finalVec;
+    return minusDemandsAssurer(finalVec);
 }
+
+// TODO create a class
+bool Parser::isProgramSavedWord(string s) {
+    return s == "demo";
+}
+
+
+vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
+
+    vector<string> assuredVec;
+
+    for(auto s: expVector){
+        string toAdd = "";
+        auto it = s.begin();
+
+        for(; it != s.end() ; it++){
+            if(*(it-1) == '-' && ((it-1) == s.begin() || Utils::isAnyOperator(*(it-3))) ){
+                //delete the cur space by not adding him!
+                continue;
+            }
+            toAdd.push_back(*it);
+        }
+        assuredVec.push_back(toAdd);
+    }
+
+    return assuredVec;
+}
+
 
 
 Expression* Parser::stringToMathExpression(stack<string> &tokens){

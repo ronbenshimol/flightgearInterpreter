@@ -16,6 +16,7 @@
 #include "Plus.h"
 #include "Minus.h"
 #include "Multi.h"
+#include "SymbolsTable.h"
 
 
 
@@ -30,6 +31,10 @@ class Parser {
     vector<string> toIndependentExpStrings(stack<string> tokensStack);
 
     Expression* stringToMathExpression(stack<string> &tokens);
+
+    bool isProgramSavedWord(string s);
+
+    vector<string> minusDemandsAssurer(vector<string> expVector);
 
 public:
     //Parser();

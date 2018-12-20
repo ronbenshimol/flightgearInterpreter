@@ -25,7 +25,7 @@ const std::vector<std::string> Utils::explode(std::string &s, const char &c){
 }
 
 bool Utils::isMathOperator(char c) {
-    return (c == '+' || c == '-' || c =='/' || c == '*' || c == '%');
+    return (c == '+' || c == '-' || c =='/' || c == '*');
 }
 
 bool Utils::isAnyOperator(char c) {
