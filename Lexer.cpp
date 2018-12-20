@@ -61,7 +61,7 @@ bool Lexer::isMathOperator(char c) {
 }
 
 bool Lexer::isAnyOperator(char c) {
-    return isMathOperator(c) || c == '=';
+    return isMathOperator(c) || c == '=' || c == '(' || c == ')';
 }
 
 
