@@ -8,29 +8,36 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "Command.h"
-#include "DemoCommand.h"
 #include "Expression.h"
+#include "Utils.h"
 
 #include <queue>
+#include <stack>
+
 
 using namespace std;
 
 class Parser {
 
-    map<string, Command *> stringToCommandMap;
-    queue<Expression *> *expQueue;
+    map<string, Expression *> stringToExpressionMap;
 
-    queue<Expression *> *parseLineToExpressionQueue(queue<string> tokensQueue);
+    stack<Expression *> *expQueue;
+
+    vector<string> toIndependentExpStrings(stack<string> tokensStack);
 
     string getNextExpStr(queue<string> tokensQueue);
 
 
 public:
     //Parser();
-    void virtual executeStringVector(vector<string> stringVec);
 
     void parse(vector<string> lexed);
+
+
+
+
+    //void virtual executeStringVector(vector<string> stringVec);
+
 
 };
 

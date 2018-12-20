@@ -1,5 +1,6 @@
 
 
+
 #include "Parser.h"
 
 
@@ -19,74 +20,85 @@
 //
 //    //TODO insert here any additional command to map
 //
-//    this->stringToCommandMap = mapToAssign;
+//    this->stringToExpressionMap = mapToAssign;
 //
 //    // TODO delete
 //}
 
-/**
- * gets a string vector from lexer
- * creates the appropriate expressions/commands and executes.
- */
-void Parser::executeStringVector(vector<string> stringVec) {
 
-    //index that points on the next string to interpret
-    int index = 0;
-
-    //interpret loop
-    while (index < stringVec.size()){
-
-        Command *c = stringToCommandMap.at(stringVec.at(index));
-        if (c != NULL){
-            // index is promoted by 1 + any additional required parameter used by execute
-            index += c->execute(stringVec, index);
-
-        }
-    }
-
-}
 
 
 void Parser::parse(vector<string> lexed) {
-    queue<string> tokensQueue;
+    stack<string> tokensStack;
+    stack<string> tempStack;
+
+    //push to a stack
     for(string s: lexed)
-        tokensQueue.push(s);
-    this->expQueue = parseLineToExpressionQueue(tokensQueue);
+        tempStack.push(s);
+    //flips all using temp stack
+    while(!tempStack.empty()){
+        string cur = tempStack.top();
+        tempStack.pop();
+        tokensStack.push(cur);
+    }
+    //tokens stack is now in the correct order.
+
+    vector<string> independentExpStrings = toIndependentExpStrings(tokensStack);
 
 }
 
-queue<Expression *> *Parser::parseLineToExpressionQueue(queue<string> tokensQueue) {
+/**
+ *
+ * @param tokensStack
+ * @return returns a vector<string> of strings that are meant to be expressions.
+ * example :
+ * for tokens: open 3 + 4 5
+ * return : open , 3 + 4 , 5
+ */
+vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
     //TODO do
 
-    queue<Expression *> *queueOnBuild = new queue<Expression *>;
+    vector<string> vecOnBuild;
     //TODO free
-    if(tokensQueue.empty() || tokensQueue.front() == "\n")
-        return queueOnBuild;
+    if (tokensStack.empty() || tokensStack.top() == "\n")
+        return vecOnBuild;
 
-    string first = tokensQueue.front();
-    tokensQueue.pop();
+    // loop on the different tokens
+    string cur = "";
 
-    string nextExpStr = getNextExpStr(tokensQueue);
+    while (tokensStack.top() != "\n") {
 
-    //TODO read all next expressions in line
+        string expStr = "";
+        bool finishedIndependent = false;
 
-    return queueOnBuild;
+        while (!finishedIndependent) {
+
+            cur = tokensStack.top();
+            expStr.append(cur);
+            tokensStack.pop();
+
+            //if the len is 1 (only 1 char) and this char is any operator
+
+            // TODO check if previous was an operator that another token is expected afterwards
+            if (*(expStr.end())) {
+                // TODO add to exp
+            }
+
+        }
+    }
+    
+    return vecOnBuild;
 }
 
-//TODO check if next is an operator! if it is, get the next string as well. mind that '('
-//TODO is not considered an operator currenty!
-string Parser::getNextExpStr(queue<string> tokensQueue) {
 
 
-    string expStr = "";
 
-    expStr += tokensQueue.front();
 
-    tokensQueue.pop();
 
-    //if ((tokensQueue.front()))
 
-}
+
+
+
 
 //my main:
 
@@ -120,7 +132,30 @@ string Parser::getNextExpStr(queue<string> tokensQueue) {
 
 
 
-
+//
+//
+//
+///**
+// * gets a string vector from lexer
+// * creates the appropriate expressions/commands and executes.
+// */
+//void Parser::executeStringVector(vector<string> stringVec) {
+//
+//    //index that points on the next string to interpret
+//    int index = 0;
+//
+//    //interpret loop
+//    while (index < stringVec.size()){
+//
+//        Command *c = stringToExpressionMap.at(stringVec.at(index));
+//        if (c != NULL){
+//            // index is promoted by 1 + any additional required parameter used by execute
+//            index += c->execute(stringVec, index);
+//
+//        }
+//    }
+//
+//}
 
 
 

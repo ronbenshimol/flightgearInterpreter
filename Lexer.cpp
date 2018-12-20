@@ -33,9 +33,9 @@ vector<string> Lexer::splitTouchingExpressions(string s) {
 
     for (char n : s)
     {
-        if (!isAnyOperator(n))
+        if (!Utils::isAnyOperator(n))
             buff += n;
-        else if (isAnyOperator(n))
+        else if (Utils::isAnyOperator(n))
         {
             v.push_back(buff);
             buff = "";
@@ -56,13 +56,7 @@ vector<string> Lexer::splitTouchingExpressions(string s) {
     return ret;
 }
 
-bool Lexer::isMathOperator(char c) {
-    return (c == '+' || c == '-' || c =='/' || c == '*' || c == '%');
-}
 
-bool Lexer::isAnyOperator(char c) {
-    return isMathOperator(c) || c == '=' || c == '(' || c == ')' || c == ',';
-}
 
 
 /**

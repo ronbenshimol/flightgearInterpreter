@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <string>
+#include "Utils.h"
 
 using namespace std;
 
@@ -17,15 +18,14 @@ class Lexer {
 
     vector<string> virtual splitBy(string &s, const char &c);
 
-
+    vector<string> splitTouchingExpressions(string s);
 
 public:
 
     vector<string> virtual lexString(string line);
 
-    bool isMathOperator(char c);
-    bool isAnyOperator(char c);
-    vector<string> splitTouchingExpressions(string s);
+
+
 };
 
 
