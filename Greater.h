@@ -13,6 +13,10 @@
  */
 class Greater : public BooleanExpression {
 public:
+
+    Greater(Expression *leftExpression, Expression *rightExpression) : BooleanExpression(leftExpression,
+                                                                                         rightExpression) {}
+
     double calculate() override {
         if (this->leftExpression->calculate() > this->rightExpression->calculate())
             return 1;

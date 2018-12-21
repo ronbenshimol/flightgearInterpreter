@@ -13,6 +13,10 @@
  */
 class LesserEquals : public BooleanExpression {
 public:
+
+    LesserEquals(Expression *leftExpression, Expression *rightExpression) : BooleanExpression(leftExpression,
+                                                                                              rightExpression) {}
+
     double calculate() override {
         return (leftExpression->calculate() <= rightExpression->calculate())? 1 : 0 ;
     }

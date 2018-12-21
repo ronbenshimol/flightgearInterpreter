@@ -9,7 +9,9 @@
 #include "BinaryExpression.h"
 
 class BooleanExpression : public BinaryExpression {
-
+public:
+    BooleanExpression(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
+                                                                                                  rightExpression) {}
 };
 
 
