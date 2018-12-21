@@ -11,15 +11,14 @@
 class WhileExpression : public ConditionalExpression {
 
 public:
-    WhileExpression(const vector<Expression *> &expressions,
-            Expression *condition) : ConditionalExpression(expressions, condition) {}
+    WhileExpression(vector<Expression *> expressions,
+            Expression *condition) : ConditionalExpression(move(expressions), condition) {}
 
     double calculate() override {
         while(this->isConditionalSatisfied()){
             for(Expression *e: this->expressions)
                 e->calculate();
         }
-        //TODO seems legit?
         return 0;
     }
 

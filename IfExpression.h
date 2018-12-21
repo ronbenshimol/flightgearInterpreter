@@ -20,7 +20,6 @@ public:
             for(Expression *e: this->expressions)
                 e->calculate();
         }
-        //TODO seems legit?
         return 0;
     }
 
