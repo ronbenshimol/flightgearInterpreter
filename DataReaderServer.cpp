@@ -126,12 +126,12 @@ void DataReaderServer::updateSymbolsValues(std::vector<std::string> valuesVec){
 
     for (int i = 0; i < valuesVec.size(); ++i) {
 
-        //SymbolsTable::getInstance() -> setSymbol(SymbolsTable::getInstance()->paths[i], std::atof(valuesVec[i].c_str()));
+        if(valuesVec[i].empty()) continue;
 
         //the symbol name as exist in the simulator paths
-        string symbolName = SymbolsTable::getInstance()->paths[i];
+        string symbolName = SymbolsTable::paths[i];
 
-        SymbolsTable::getInstance() -> setSymbol(symbolName, std::atof(valuesVec[i].c_str()), symbolName);
+        SymbolsTable::getInstance() -> setSymbol(symbolName, std::stod(valuesVec[i]), symbolName);
 
         //TODO: temp line
         SymbolsTable::getInstance() ->printSymbols();
