@@ -9,4 +9,4 @@ add_executable(flightgearInterpreter
         Utils.cpp Utils.h SymbolsTable.cpp SymbolsTable.h DataWriterClient.cpp DataWriterClient.h
         ShuntingYard.cpp ShuntingYard.h UnaryExpression.h BinaryExpression.h Plus.h Minus.h Div.h
         Multi.h Neg.h BooleanExpression.h Num.h OpenDataServer.h Greater.h GreaterEquals.h Lesser.h
-        LesserEquals.h Equals.h NotEquals.h NaryExpression.h ConditionalExpression.h IfExpression.h WhileExpression.h)
+        LesserEquals.h Equals.h NotEquals.h NaryExpression.h ConditionalExpression.h IfExpression.h WhileExpression.h cmake-build-debug/Command.h)
