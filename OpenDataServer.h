@@ -10,27 +10,35 @@
 #include "BinaryExpression.h"
 #include "DataReaderServer.h"
 #include "SymbolsTable.h"
+#include "Command.h"
 
-class OpenDataServer : public BinaryExpression {
+class OpenDataServer : public Command {
+
+    Expression *leftExpression;
+    Expression *rightExpression;
 
 public:
 
-    OpenDataServer(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
-                                                                                               rightExpression) {}
+    OpenDataServer(Expression *leftExpression, Expression *rightExpression){
 
-    double calculate(){
+        this->leftExpression = leftExpression;
+        this->rightExpression = rightExpression;
 
-        double ip = leftExpression->calculate() - rightExpression->calculate();
+    }
 
+    double execute(){
+
+        int port = (int)leftExpression->calculate();
+        int numOfReads = (int)rightExpression->calculate();
 
         std::thread serverThread([](int port, int numOfReadsPS){
 
             DataReaderServer server(port,numOfReadsPS);
             server.openServer();
 
-        },5400,10);
+        },port,numOfReads);
 
-        return leftExpression->calculate() - rightExpression->calculate();
+        return 0;
     }
 
 };
