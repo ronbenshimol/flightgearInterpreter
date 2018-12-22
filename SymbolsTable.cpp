@@ -79,7 +79,9 @@ double SymbolsTable::getSymbolValue(std::string symbol){
 }
 
 void SymbolsTable::bindNewSymbolToExistSymbol(std::string newSymbol, std::string existSymbol){
-    symbolsMap[newSymbol] = symbolsMap[existSymbol];
+    if(isSymbolExist(existSymbol)){
+        symbolsMap[newSymbol] = symbolsMap[existSymbol];
+    }
 }
 
 void SymbolsTable::printSymbols(){
