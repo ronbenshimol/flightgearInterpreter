@@ -22,8 +22,6 @@
 #include "SymbolsTable.h"
 
 
-
-
 using namespace std;
 
 class Parser {
@@ -33,8 +31,6 @@ class Parser {
     stack<Expression *> *expQueue;
 
     vector<string> toIndependentExpStrings(stack<string> tokensStack);
-
-
 
     bool isProgramSavedWord(string s);
 
@@ -48,9 +44,6 @@ public:
     //TODO make private after tests
     Expression* stringToMathExpression(stack<string> &tokens);
 
-
-
-    //void virtual executeStringVector(vector<string> stringVec);
 
 
 };

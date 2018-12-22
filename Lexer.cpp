@@ -24,7 +24,16 @@ vector<string> Lexer::lexString(string line) {
 
     }
 
-    return splitedTouched;
+    //return splitedTouched;
+
+    vector<string> noNewLineStrings;
+
+    for(auto s: splitedTouched){
+        if(s != "\n")
+            noNewLineStrings.push_back(s);
+    }
+    return noNewLineStrings;
+
 }
 
 vector<string> Lexer::splitTouchingExpressions(string s) {
