@@ -132,6 +132,10 @@ vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
 
 Expression* Parser::stringToMathExpression(stack<string> &tokens){
 
+    if(tokens.empty()){
+        throw "unknown problem";
+    }
+
     string token = tokens.top();
     tokens.pop();
 
@@ -148,8 +152,29 @@ Expression* Parser::stringToMathExpression(stack<string> &tokens){
     } else if(token == "*"){
         Expression* rightExp  = stringToMathExpression(tokens);
         Expression* leftExp  = stringToMathExpression(tokens);
-
         return new Multi(leftExp,rightExp);
+    } else if(token == "/"){
+        Expression* rightExp  = stringToMathExpression(tokens);
+        Expression* leftExp  = stringToMathExpression(tokens);
+        return new Div(leftExp,rightExp);
+    } else if(token.length() > 1 && token.at(0) == '-'){
+        string tokenWithoutNeg = token.substr(1 ,token.length() - 1);
+        tokens.push(tokenWithoutNeg);
+        Expression* unaryExp  = stringToMathExpression(tokens);
+        return new Neg(unaryExp);
+        //TODO add variable case!!!!!!!!!!!!!!!!!!!!!
+//    } else if (SymbolsTable::getInstance()->isSymbolExist(token)){
+//        double value = SymbolsTable::getInstance()->getSymbolValue(token);
+//        return new Num(value);
+    } else{
+        //num
+        double value;
+        try {
+            value = stod(token);
+        }catch(...){
+            throw "problem in shunting yard tree";
+        }
+        return new Num(value);
     }
 
     //TODO: take care of Neg (-)
