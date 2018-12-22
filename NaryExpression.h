@@ -14,7 +14,6 @@ class NaryExpression : public Expression {
 
 protected:
     vector<Expression *> expressions;
-public:
     NaryExpression(vector<Expression *> expressions) : expressions(move(expressions)) {}
 
 };

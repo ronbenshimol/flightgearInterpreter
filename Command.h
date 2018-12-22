@@ -9,7 +9,7 @@
 class Command {
 
 public:
-    double virtual execute() = 0;
+    virtual double execute() = 0;
 
 };
 

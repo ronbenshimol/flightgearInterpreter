@@ -9,7 +9,8 @@
 #include "BinaryExpression.h"
 
 class BooleanExpression : public BinaryExpression {
-public:
+
+protected:
     BooleanExpression(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
                                                                                                   rightExpression) {}
 };
