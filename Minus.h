@@ -5,15 +5,15 @@
 
 class Minus : public BinaryExpression {
 
-
-
 public:
+
+    Minus(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
+                                                                                      rightExpression) {}
 
     double calculate(){
         return leftExpression->calculate() - rightExpression->calculate();
     }
-    Minus(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
-                                                                                      rightExpression) {}
+
 };
 
 

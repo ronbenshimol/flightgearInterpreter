@@ -10,14 +10,14 @@
 
 class Neg : public UnaryExpression {
 
+public:
 
-private:
+    Neg(Expression *innerExpression) : UnaryExpression(innerExpression) {}
+
     double calculate(){
         return -1 * innerExpression->calculate();
     }
 
-public:
-    Neg(Expression *innerExpression) : UnaryExpression(innerExpression) {}
 };
 
 

@@ -7,51 +7,58 @@ SymbolsTable *SymbolsTable::getInstance()
 {
     //TODO: delete instance at the end
 
-
     //singleton instance:
     if (instance == 0)
     {
         instance = new SymbolsTable();
-
     }
-
     return instance;
 }
 
 SymbolsTable::SymbolsTable(){
 
-}
 
-void SymbolsTable::setSymbol(std::string symbol, double value){
-    symbolsMap[symbol] = value;
-}
+    for (int i = 0; i < paths->length(); ++i) {
 
-double SymbolsTable::getValue(std::string symbol){
-    return symbolsMap[symbol];
-}
+        //the symbol name as exist in the simulator paths
+        std::string symbolName = SymbolsTable::getInstance()->paths[i];
 
-void SymbolsTable::updateLocalValueByPath(std::string path, double value){
+        SymbolsTable::getInstance() -> setSymbol(symbolName, 0, symbolName);
 
-    std::string symbolToUpdate = pathToSymbolMap[path];
-    if(!symbolToUpdate.empty())
-        setSymbol(symbolToUpdate, value);
+        //TODO: temp line
+        SymbolsTable::getInstance() ->printSymbols();
+    }
 
 }
 
-void SymbolsTable::bindSymbolToPath(std::string symbol, std::string path){
-    pathToSymbolMap[path] = symbol;
+/**
+ *
+ * @param symbol,value,path
+ * @return void
+ * description : gets the symbol name, the value, and the path to bind to in the simulator
+ *
+ */
+void SymbolsTable::setSymbol(std::string symbol, double value, std::string path){
+    symbolsMap[symbol] = new SymbolData(value,path);
+}
+
+double SymbolsTable::getSymbolValue(std::string symbol){
+    return symbolsMap[symbol]->value;
+}
+
+void SymbolsTable::bindNewSymbolToExistSymbol(std::string newSymbol, std::string existSymbol){
+    symbolsMap[newSymbol] = symbolsMap[existSymbol];
 }
 
 void SymbolsTable::printSymbols(){
     for(auto elem : symbolsMap)
     {
-        std::cout << elem.first << ": " << elem.second << "  ";
+        std::cout << elem.first << ": " << elem.second->value << "  ";
     }
-
 
     std::cout << std::endl;
 }
 
 bool  SymbolsTable::isSymbolExist(std::string symbol){
-    return symbol == "x";
+    return !(symbolsMap.find(symbol) == symbolsMap.end());
 }

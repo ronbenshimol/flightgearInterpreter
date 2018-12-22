@@ -13,12 +13,12 @@ class Num : public Expression {
     double value;
 
 public:
-    double calculate() override {
-        return value;
-    }
 
     Num(double value) : value(value) {}
 
+    double calculate() override {
+        return value;
+    }
 };
 
 
