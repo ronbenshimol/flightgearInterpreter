@@ -16,7 +16,11 @@
 #include "Plus.h"
 #include "Minus.h"
 #include "Multi.h"
+#include "Div.h"
+#include "Neg.h"
+#include "Num.h"
 #include "SymbolsTable.h"
+
 
 
 
@@ -30,7 +34,7 @@ class Parser {
 
     vector<string> toIndependentExpStrings(stack<string> tokensStack);
 
-    Expression* stringToMathExpression(stack<string> &tokens);
+
 
     bool isProgramSavedWord(string s);
 
@@ -41,6 +45,8 @@ public:
 
     void parse(vector<string> lexed);
 
+    //TODO make private after tests
+    Expression* stringToMathExpression(stack<string> &tokens);
 
 
 
