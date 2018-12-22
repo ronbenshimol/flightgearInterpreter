@@ -9,12 +9,12 @@
 
 class Div : public BinaryExpression {
 
+public:
+    Div(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression, rightExpression) {}
+
     double calculate(){
         return leftExpression->calculate() / rightExpression->calculate();
     }
-
-public:
-    Div(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression, rightExpression) {}
 
 };
 

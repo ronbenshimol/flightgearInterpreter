@@ -6,12 +6,16 @@
 
 class Plus : public BinaryExpression {
 
+public:
+
+    Plus(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression, rightExpression) {}
+
     double calculate(){
         return leftExpression->calculate() + rightExpression->calculate();
     }
 
-public:
-    Plus(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression, rightExpression) {}
+
+
 
 
 };
