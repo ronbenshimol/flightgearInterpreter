@@ -1,31 +1,14 @@
 
-
-
 #include "DataWriterClient.h"
 
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <netdb.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <netinet/in.h>
-
-#include <string.h>
-
-
-DataWriterClient::DataWriterClient(std::string serverIp, uint16_t serverPort){
-
-
-
-}
+DataWriterClient::DataWriterClient(string serverIP, uint16_t serverPort) : serverIP(move(serverIP)),
+                                                                                  serverPort(serverPort) {}
 
 bool DataWriterClient::open() {
 
     struct sockaddr_in serv_addr;
     struct hostent *server;
-
 
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -35,7 +18,7 @@ bool DataWriterClient::open() {
         exit(1);
     }
 
-    server = gethostbyname(serverIp.c_str());
+    server = gethostbyname(serverIP.c_str());
 
     if (server == NULL) {
         fprintf(stderr,"ERROR, no such host\n");
@@ -57,14 +40,15 @@ bool DataWriterClient::open() {
        * will be read by server
     */
 
-
+    return true;
 }
 
 
 
 
-bool DataWriterClient::close() {
-    return false;
+bool DataWriterClient::closeClient() {
+    close(this->sockfd);
+    return true;
 }
 
 
@@ -73,28 +57,25 @@ bool DataWriterClient::close() {
 
 bool DataWriterClient::send(string message) {
 
-//    int n;
-//
-//
-//    /* Send message to the server */
-//    n = write(sockfd, message., message.length());
-//
-//    if (n < 0) {
-//        perror("ERROR writing to socket");
-//        exit(1);
-//    }
-//
-//    /* Now read server response */
-//    bzero(buffer,256);
-//    n = read(sockfd, buffer, 255);
-//
-//    if (n < 0) {
-//        perror("ERROR reading from socket");
-//        exit(1);
-//    }
-//
-//    printf("%s\n",buffer);
+    ssize_t n;
 
+    /* Send message to the server */
+    n = write(sockfd, message.c_str(), message.length());
 
-    return false;
+    if (n < 0) {
+        perror("ERROR writing to socket");
+        exit(1);
+    }
+
+    //TODO remove
+    printf("%s\n", message.c_str());
+
+    return true;
 }
+
+
+
+
+
+
+
