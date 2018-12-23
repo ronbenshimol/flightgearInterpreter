@@ -4,6 +4,7 @@
 
 #include <string>
 #include <fstream>
+#include <sstream>
 #include "Lexer.h"
 #include "Parser.h"
 
@@ -21,14 +22,17 @@ void runScope(string scope){
 
 
 void fromFile(string fileName){
-    ifstream in;
-    //in.open()
+
+    std::ifstream in(fileName);
+    std::stringstream buffer;
+    buffer << in.rdbuf();
+    in.close();
 
 }
 
 int My_main(int argc, char **argv) {
 
-
+    return 0;
 }
 
 

@@ -26,8 +26,7 @@ public:
 
         double value = exp->calculate();
 
-        //TODO use notify the symbol table
-        //SymbolsTable::getInstance().
+        SymbolsTable::getInstance()->notifyClientValueChanged(symbol, value);
 
         return 0;
     }

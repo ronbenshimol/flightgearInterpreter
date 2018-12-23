@@ -5,6 +5,7 @@
 #include <map>
 #include <iostream>
 #include <vector>
+#include "DataWriterClient.h"
 
 struct SymbolData
 {
@@ -27,6 +28,8 @@ private:
     SymbolsTable();
 
     std::map<std::string, SymbolData*> symbolsMap;
+    DataWriterClient *client;
+
 
 public:
     /* Static access method. */
@@ -38,9 +41,16 @@ public:
     void setSymbol(std::string symbol, double value, std::string path);
     void setSymbol(std::string symbol, double value);
     double getSymbolValue(std::string symbol);
+    string getSymbolPath(std::string symbol);
     void bindNewSymbolToExistSymbol(std::string newSymbol, std::string existSymbol);
     void printSymbols();
-    bool  isSymbolExist(std::string symbol);
+    bool isSymbolExist(std::string symbol);
+
+    DataWriterClient *getClient() const;
+
+    void setClient(DataWriterClient *client);
+
+    void notifyClientValueChanged(string symbol, double value);
 
 
 

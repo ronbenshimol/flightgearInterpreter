@@ -81,8 +81,6 @@ SymbolsTable *SymbolsTable::getInstance()
 
 SymbolsTable::SymbolsTable(){
 
-    int len = SymbolsTable::paths.size();
-
     //init the default symbols of the simulator
     for (int i = 0; i < SymbolsTable::paths.size(); ++i) {
 
@@ -105,33 +103,39 @@ SymbolsTable::SymbolsTable(){
  */
 void SymbolsTable::setSymbol(std::string symbol, double value, std::string path){
     if(isSymbolExist(symbol)){
-        symbolsMap[symbol]->value = value;
+        symbolsMap.at(symbol)->value = value;
     } else{
-        symbolsMap[symbol] = new SymbolData(value,path);
+        symbolsMap.at(symbol) = new SymbolData(value, path);
     }
 }
 
 void SymbolsTable::setSymbol(std::string symbol, double value){
     if(isSymbolExist(symbol)){
-        symbolsMap[symbol]->value = value;
+        symbolsMap.at(symbol)->value = value;
     } else{
-        symbolsMap[symbol] = new SymbolData(value,"");
+        symbolsMap.at(symbol) = new SymbolData(value,"");
     }
+
 }
 
 double SymbolsTable::getSymbolValue(std::string symbol){
-    return symbolsMap[symbol]->value;
+    return symbolsMap.at(symbol)->value;
 }
+
+string SymbolsTable::getSymbolPath(std::string symbol){
+    return symbolsMap.at(symbol)->path;
+}
+
 
 void SymbolsTable::bindNewSymbolToExistSymbol(std::string newSymbol, std::string existSymbol){
     if(isSymbolExist(existSymbol)){
         symbolsMap[newSymbol] = symbolsMap[existSymbol];
     }
+    //TODO if not exist - michael from moodel
 }
 
 void SymbolsTable::printSymbols(){
-    for(auto elem : symbolsMap)
-    {
+    for(auto elem : symbolsMap) {
         std::cout << elem.first << ": " << elem.second->value << "  ";
     }
 
@@ -140,4 +144,22 @@ void SymbolsTable::printSymbols(){
 
 bool  SymbolsTable::isSymbolExist(std::string symbol){
     return !(symbolsMap.find(symbol) == symbolsMap.end());
+}
+
+DataWriterClient *SymbolsTable::getClient() const {
+    return client;
+}
+
+void SymbolsTable::setClient(DataWriterClient *client) {
+    SymbolsTable::client = client;
+}
+
+
+void SymbolsTable::notifyClientValueChanged(string symbol, double value) {
+
+    string path = this->getSymbolPath(move(symbol));
+
+    string message = "set " + path + " " + to_string(value) + "\r\n";
+    this->client->send(message);
+
 }
