@@ -108,9 +108,27 @@ vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
     for(auto s: vecOnBuild)
         finalVec.push_back(s.substr(0, s.length() - 1));
 
-    return removeCommas(minusDemandsAssurer(finalVec));
+    return mergeBooleanIndependent(removeCommas(minusDemandsAssurer(finalVec)));
 }
 
+vector<string> Parser::mergeBooleanIndependent(vector<string> vec) {
+    vector<string> ans;
+
+    auto it = vec.begin();
+    string toAdd = "";
+
+    for (;it != vec.end() ; it++){
+        toAdd += *it;
+
+        if(it->length() == 1 && Utils::isFirstBooleanOperator(it->at(0)) &&
+        (it+1)->length() == 1 && Utils::isSecondBooleanOperator(((it+1))->at(0))){
+            continue;
+        }
+        ans.push_back(toAdd);
+        toAdd = "";
+    }
+    return ans;
+}
 
 vector<string> Parser::removeCommas(vector<string> vec) {
 

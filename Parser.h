@@ -61,6 +61,8 @@ class Parser {
 
     vector<string> removeCommas(vector<string> vec);
 
+    vector<string> mergeBooleanIndependent(vector<string> vec);
+
 public:
     //Parser();
 

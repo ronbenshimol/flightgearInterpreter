@@ -34,6 +34,15 @@ bool Utils::isAnyOperator(char c) {
     c == '\n' || c == '<' || c == '>' || c == '!' || c == '{' || c == '}' ;
 }
 
+bool Utils::isFirstBooleanOperator(char c) {
+    return  c == '!' || c == '=' || c == '<' || c == '>';
+}
+
+bool Utils::isSecondBooleanOperator(char c) {
+    return c == '=';
+}
+
+
 bool Utils::isPreviousTokenExpectedOperator(char c) {
     return isMathOperator(c) || c == '(' || c == ')';
 }

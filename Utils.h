@@ -17,8 +17,11 @@ public:
     static bool isAnyOperator(char c);
     static bool isAnotherTokenExpectedOperator(char c);
     static bool isPreviousTokenExpectedOperator(char c);
+    static bool isFirstBooleanOperator(char c);
+    static bool isSecondBooleanOperator(char c);
     static bool isStringToken(string s);
     static string contentOfStringToken(string s);
+
 
     static stack<string> fromVectorToStack(vector<string> vec);
 
