@@ -3,10 +3,21 @@
 
 #include <string>
 
-class DataWriterClient {
-public:
-    DataWriterClient(std::string serverIp, int serverPort);
+using namespace std;
 
+class DataWriterClient {
+
+    int sockfd;
+
+public:
+
+    DataWriterClient(std::string serverIp, uint16_t serverPort);
+
+    bool open();
+
+    bool send(string message);
+
+    bool close();
 
 };
 
