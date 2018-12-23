@@ -7,7 +7,10 @@ using namespace std;
 
 class DataWriterClient {
 
+
     int sockfd;
+
+
 
 public:
 
