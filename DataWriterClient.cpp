@@ -68,7 +68,7 @@ bool DataWriterClient::send(string message) {
     }
 
     //TODO remove
-    printf("%s\n", message.c_str());
+    //printf("%s\n", message.c_str());
 
     return true;
 }

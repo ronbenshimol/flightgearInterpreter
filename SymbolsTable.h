@@ -50,9 +50,6 @@ public:
 
     void setClient(DataWriterClient *client);
 
-    void notifyClientValueChanged(string symbol, double value);
-
-
 
 };
 

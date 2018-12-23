@@ -25,8 +25,10 @@ public:
     double execute() override {
 
         double value = exp->calculate();
-
-        SymbolsTable::getInstance()->notifyClientValueChanged(symbol, value);
+        string path = SymbolsTable::getInstance()->getSymbolPath(symbol);
+        DataWriterClient* client = SymbolsTable::getInstance()->getClient();
+        string message = "set " + path + " " + to_string(value) + "\r\n";
+        client->send(message);
 
         return 0;
     }

@@ -105,7 +105,7 @@ void SymbolsTable::setSymbol(std::string symbol, double value, std::string path)
     if(isSymbolExist(symbol)){
         symbolsMap.at(symbol)->value = value;
     } else{
-        symbolsMap.at(symbol) = new SymbolData(value, path);
+        symbolsMap[symbol] = new SymbolData(value, path);
     }
 }
 
@@ -113,7 +113,7 @@ void SymbolsTable::setSymbol(std::string symbol, double value){
     if(isSymbolExist(symbol)){
         symbolsMap.at(symbol)->value = value;
     } else{
-        symbolsMap.at(symbol) = new SymbolData(value,"");
+        symbolsMap[symbol] = new SymbolData(value,"");
     }
 
 }
@@ -126,19 +126,20 @@ string SymbolsTable::getSymbolPath(std::string symbol){
     return symbolsMap.at(symbol)->path;
 }
 
-
 void SymbolsTable::bindNewSymbolToExistSymbol(std::string newSymbol, std::string existSymbol){
     if(isSymbolExist(existSymbol)){
         symbolsMap[newSymbol] = symbolsMap[existSymbol];
     }
-    //TODO if not exist - michael from moodel
+    else{
+        //create and bind new symbol to path
+        setSymbol(newSymbol,0,existSymbol);
+    }
 }
 
 void SymbolsTable::printSymbols(){
     for(auto elem : symbolsMap) {
         std::cout << elem.first << ": " << elem.second->value << "  ";
     }
-
     std::cout << std::endl;
 }
 
@@ -152,14 +153,4 @@ DataWriterClient *SymbolsTable::getClient() const {
 
 void SymbolsTable::setClient(DataWriterClient *client) {
     SymbolsTable::client = client;
-}
-
-
-void SymbolsTable::notifyClientValueChanged(string symbol, double value) {
-
-    string path = this->getSymbolPath(move(symbol));
-
-    string message = "set " + path + " " + to_string(value) + "\r\n";
-    this->client->send(message);
-
 }
