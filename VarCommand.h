@@ -6,20 +6,20 @@
 #include "Expression.h"
 #include "SymbolsTable.h"
 
-class VarCommand: Command{
-
-public:
+class VarCommand: public Command{
 
     std::string name;
+
+public:
 
     VarCommand(std::string name, std::string bindToSymbol) {
         this->name = name;
         SymbolsTable::getInstance()->bindNewSymbolToExistSymbol(name, bindToSymbol);
     }
 
-    VarCommand(std::string name, Expression value) {
-        this->name = name;
-        SymbolsTable::getInstance()->setSymbol(name, value.calculate());
+    VarCommand(std::string name, Expression* value):name(name) {
+        double val = value->calculate();
+        SymbolsTable::getInstance()->setSymbol(name, val);
     }
 
     double execute() override {

@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <vector>
 
 struct SymbolData
 {
@@ -31,9 +32,11 @@ public:
     /* Static access method. */
     static SymbolsTable *getInstance();
 
-    static std::string paths[23];
+    //static std::string paths[23];
+    static std::vector<std::string> paths;
 
-    void setSymbol(std::string symbol, double value, std::string path = NULL);
+    void setSymbol(std::string symbol, double value, std::string path);
+    void setSymbol(std::string symbol, double value);
     double getSymbolValue(std::string symbol);
     void bindNewSymbolToExistSymbol(std::string newSymbol, std::string existSymbol);
     void printSymbols();

@@ -19,6 +19,7 @@
 #include "Div.h"
 #include "Neg.h"
 #include "Num.h"
+#include "Var.h"
 #include "SymbolsTable.h"
 
 

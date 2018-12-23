@@ -20,11 +20,11 @@ stack<string> ShuntingYard::convertToPostfix(string infix){
         {
             outputList.push_back(tokens[i]);
         }
-        if(tokens[i] == "(")
+        else if(tokens[i] == "(")
         {
             s.push(tokens[i]);
         }
-        if(tokens[i] == ")")
+        else if(tokens[i] == ")")
         {
             while(!s.empty() && s.top() != "(")
             {
@@ -33,7 +33,7 @@ stack<string> ShuntingYard::convertToPostfix(string infix){
             }
             s.pop();
         }
-        if(isOperator(tokens[i]) == true)
+        else if(isOperator(tokens[i]) == true)
         {
             while(!s.empty() && Priority(s.top()) >= Priority(tokens[i]))
             {
@@ -41,6 +41,11 @@ stack<string> ShuntingYard::convertToPostfix(string infix){
                 s.pop();
             }
             s.push(tokens[i]);
+        }
+        else if(tokens[i].length()>0)
+        {
+            //the token is a symbol
+            outputList.push_back(tokens[i]);
         }
     }
     //pop any remaining operators from the stack and insert to outputlist

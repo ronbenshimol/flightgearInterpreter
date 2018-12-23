@@ -5,7 +5,7 @@
 #include "Expression.h"
 #include "SymbolsTable.h"
 
-class Var: Expression {
+class Var: public Expression {
 
     std::string name;
 

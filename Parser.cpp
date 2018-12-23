@@ -174,10 +174,8 @@ Expression* Parser::stringToMathExpression(stack<string> &tokens){
         tokens.push(tokenWithoutNeg);
         Expression* unaryExp  = stringToMathExpression(tokens);
         return new Neg(unaryExp);
-        //TODO add variable case!!!!!!!!!!!!!!!!!!!!!
     } else if (SymbolsTable::getInstance()->isSymbolExist(token)){
-        double value = SymbolsTable::getInstance()->getSymbolValue(token);
-        return new Num(value);
+        return new Var(token);
     } else{
         //num
         double value;
@@ -192,75 +190,6 @@ Expression* Parser::stringToMathExpression(stack<string> &tokens){
     //TODO: take care of Neg (-)
 
 }
-
-
-//
-///**
-// *
-// * @param tokensStack
-// * @return returns a vector<string> of strings that are meant to be expressions.
-// * example :
-// * for tokens: open 3 + 4 5
-// * return : open , 3 + 4 , 5
-// */
-//vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
-//
-//    vector<string> vecOnBuild;
-//
-//    if (tokensStack.empty() || tokensStack.top() == "\n")
-//        return vecOnBuild;
-//
-//    // loop on the different tokens
-//    string cur = "";
-//    string next = "";
-//    while (tokensStack.top() != "\n") {
-//
-//        string expStr = "";
-//        bool finishedIndependent = false;
-//
-//        while (!finishedIndependent) {
-//
-//            cur = tokensStack.top();
-//
-//            expStr.append(cur);
-//            expStr.append(" ");
-//            tokensStack.pop();
-//            next = tokensStack.top();
-//
-//            // check if cur was *not* an operator that another token is expected afterwards
-//            bool isAnotherExpected = Utils::isAnotherTokenExpectedOperator(expStr.at(expStr.length() - 2));
-//            bool isPrevExpected;
-//            // if exp is not a saved word
-//            string checkSavedWord = expStr.substr(0, expStr.length() - 1);
-//            if (!isProgramSavedWord(checkSavedWord)){
-//                isPrevExpected = next.length() == 1 && Utils::isPreviousTokenExpectedOperator(next.at(0));
-//            }else{
-//                isPrevExpected = false;
-//            }
-//
-//            if (isPrevExpected )
-//                continue;
-//            if (!(isAnotherExpected)){
-//                finishedIndependent = true;
-//            }
-//
-//        }
-//        vecOnBuild.push_back(expStr);
-//    }
-//
-//    vector<string> finalVec;
-//    for(auto s: vecOnBuild)
-//        finalVec.push_back(s.substr(0, s.length() - 1));
-//
-//    return minusDemandsAssurer(finalVec);
-//}
-
-
-
-
-
-
-
 
 
 
