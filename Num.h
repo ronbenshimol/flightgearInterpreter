@@ -19,6 +19,7 @@ public:
     double calculate() override {
         return value;
     }
+
 };
 
 

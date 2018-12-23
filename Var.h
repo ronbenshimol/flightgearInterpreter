@@ -19,6 +19,7 @@ public:
         return SymbolsTable::getInstance()->getSymbolValue(name);
     }
 
+
 };
 
 #endif //FLIGHTGEARINTERPRETER_VAR_H

@@ -12,6 +12,12 @@ class UnaryExpression : public Expression {
 protected:
     Expression* innerExpression;
     UnaryExpression(Expression *innerExpression) : innerExpression(innerExpression) {} ;
+
+public:
+    ~UnaryExpression() override {
+        delete(innerExpression);
+    }
+
 };
 
 

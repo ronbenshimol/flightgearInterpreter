@@ -11,6 +11,12 @@ protected:
 
     BinaryExpression(Expression *leftExpression, Expression *rightExpression) : leftExpression(leftExpression),
                                                                                 rightExpression(rightExpression) {}
+
+public:
+    ~BinaryExpression() override {
+        delete(leftExpression);
+        delete(rightExpression);
+    }
 };
 
 #endif //FLIGHTGEARINTERPRETER_BINARYEXPRESSION_H
