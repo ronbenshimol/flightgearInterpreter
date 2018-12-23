@@ -1,7 +1,3 @@
-//
-// Created by shaked on 12/16/18.
-//
-
 #include <list>
 #include "Lexer.h"
 
