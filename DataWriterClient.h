@@ -29,8 +29,6 @@ public:
 
     DataWriterClient(std::string serverIp, uint16_t serverPort);
 
-    DataWriterClient(const string &serverIP, uint16_t serverPort);
-
     bool open();
 
     bool send(string message);
