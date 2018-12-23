@@ -115,7 +115,10 @@ vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
 
 // TODO create a class
 bool Parser::isProgramSavedWord(string s) {
-    return s == "demo";
+
+    vector<string> savedWords = {};
+
+    emo";
 }
 
 

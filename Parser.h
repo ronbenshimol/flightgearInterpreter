@@ -22,6 +22,24 @@
 #include "Var.h"
 #include "SymbolsTable.h"
 
+#define OPEN_DATA_SERVER "openDataServer"
+#define CONNECT "connect"
+#define ASSIGNMENT "="
+#define BIND "bind"
+#define VAR "var"
+#define WHILE "while"
+#define IF "if"
+#define PRINT "print"
+#define SLEEP "sleep"
+#define LESSER "<"
+#define LESSER_EQUALS "<="
+#define GREATER ">"
+#define GREATER_EQUALS ">="
+#define EQUALS "=="
+#define NOT_EQUALS "!="
+#define EXIT "exit"
+
+
 
 using namespace std;
 
