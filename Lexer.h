@@ -1,7 +1,3 @@
-//
-// Created by shaked on 12/16/18.
-//
-
 #ifndef FLIGHTGEARINTERPRETER_LEXER_H
 #define FLIGHTGEARINTERPRETER_LEXER_H
 

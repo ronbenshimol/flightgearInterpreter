@@ -44,22 +44,22 @@
 
 class OpenDataServer : public Command {
 
-    Expression *leftExpression;
-    Expression *rightExpression;
+    Expression *portExpression;
+    Expression *readePsExpression;
 
 public:
 
-    OpenDataServer(Expression *leftExpression, Expression *rightExpression){
+    OpenDataServer(Expression *portExp, Expression *readsPs){
 
-        this->leftExpression = leftExpression;
-        this->rightExpression = rightExpression;
+        this->portExpression = portExp;
+        this->readePsExpression = readsPs;
 
     }
 
     double execute(){
 
-        int port = (int)leftExpression->calculate();
-        int numOfReads = (int)rightExpression->calculate();
+        int port = (int)portExpression->calculate();
+        int numOfReads = (int)readePsExpression->calculate();
 
         std::thread serverThread([](int port, int numOfReadsPS){
 

@@ -26,9 +26,14 @@ public:
 
         double value = exp->calculate();
         string path = SymbolsTable::getInstance()->getSymbolPath(symbol);
-        DataWriterClient* client = SymbolsTable::getInstance()->getClient();
-        string message = "set " + path + " " + to_string(value) + "\r\n";
-        client->send(message);
+        if(path != ""){
+                DataWriterClient* client = SymbolsTable::getInstance()->getClient();
+                string message = "set " + path + " " + to_string(value) + "\r\n";
+                client->send(message);
+        }
+        else{
+                SymbolsTable::getInstance()->setSymbol(symbol, value);
+        }
 
         return 0;
     }

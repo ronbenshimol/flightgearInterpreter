@@ -1,4 +1,36 @@
+/*                     .ed"""" """$$$$be.
+                   -"           ^""**$$$e.
+                 ."                   '$$$c
+                /                      "4$$b
+               d  3                      $$$$
+               $  *                   .$$$$$$
+              .$  ^c           $$$$$e$$$$$$$$.
+              d$L  4.         4$$$$$$$$$$$$$$b
+              $$$$b ^ceeeee.  4$$ECL.F*$$$$$$$
+  e$""=.      $$$$P d$$$$F $ $$$$$$$$$- $$$$$$
+ z$$b. ^c     3$$$F "$$$$b   $"$$$$$$$  $$$$*"      .=""$c
+4$$$$L        $$P"  "$$b   .$ $$$$$...e$$        .=  e$$$.
+^*$$$$$c  %..   *c    ..    $$ 3$$$$$$$$$$eF     zP  d$$$$$
+  "**$$$ec   "   %ce""    $$$  $$$$$$$$$$*    .r" =$$$$P""
+        "*$b.  "c  *$e.    *** d$$$$$"L$$    .d"  e$$***"
+          ^*$$c ^$c $$$      4J$$$$$% $$$ .e*".eeP"
+             "$$$$$$"'$=e....$*$$**$cz$$" "..d$*"
+               "*$$$  *=%4.$ L L$ P3$$$F $$$P"
+                  "$   "%*ebJLzb$e$$$$$b $P"
+                    %..      4$$$$$$$$$$ "
+                     $$$e   z$$$$$$$$$$%
+                      "*$c  "$$$$$$$P"
+                       ."""*$$$$$$$$bc
+                    .-"    .$***$$$"""*e.
+                 .-"    .e$"     "*$c  ^*b.
+          .=*""""    .e$*"          "*bc  "*$e..
+        .$"        .z*"               ^*$e.   "*****e.
+        $$ee$c   .d"                     "*$.        3.
+        ^*$E")$..$"                         *   .ee==d%
+           $.d$$$*                           *  J$$$e*
+            """""   ENTER AT YOUR OWN RISK!   "$$$"
 
+*/
 
 
 #include "Parser.h"
@@ -45,7 +77,184 @@ void Parser::parse(vector<string> lexed) {
 
 }
 
+vector<Command *> Parser::recursiveParse(vector<string> &tokens){
 
+    vector<Command *> commandsForExecute;
+
+    for(std::vector<string>::iterator it = tokens.begin(); it != tokens.end(); ++it) {
+
+        string token = *it;
+
+        if(token == WHILE || token == IF){
+
+            string leftExpToken = *(++it);
+            Expression* leftExp = stringToMathExpression(leftExpToken);
+
+            string conditionToken = *(++it);
+
+            string rightExpToken = *(++it);
+            Expression* rightExp = stringToMathExpression(leftExpToken);
+
+            int endOfBrackets = 0;
+            string currentToken = *(++it);
+            if(currentToken == "{") endOfBrackets++;
+
+            vector <string> conditonCommands;
+
+            //iterate until the closing bracket of the conditional command
+            while (endOfBrackets != 0){
+
+                string currentToken = *(++it);
+
+                if(currentToken == "{"){
+
+                    endOfBrackets++;
+                    conditonCommands.push_back(currentToken);
+                }
+                else if(currentToken == "}"){
+
+                    endOfBrackets--;
+                    if(endOfBrackets != 0){
+                        conditonCommands.push_back(currentToken);
+                    }
+                }
+                else {
+                    conditonCommands.push_back(currentToken);
+                }
+            }
+
+            //create condition:
+            BooleanExpression* condition = NULL;
+            if(conditionToken == GREATER){
+                condition= new Greater(leftExp,rightExp);
+            } else if(conditionToken == GREATER_EQUALS){
+                condition= new GreaterEquals(leftExp,rightExp);
+            } else if(conditionToken == EQUALS){
+                condition= new Equals(leftExp,rightExp);
+            } else if(conditionToken == NOT_EQUALS){
+                condition= new NotEquals(leftExp,rightExp);
+            } else if(conditionToken == LESSER){
+                condition= new Lesser(leftExp,rightExp);
+            }  else if(conditionToken == LESSER_EQUALS){
+                condition= new LesserEquals(leftExp,rightExp);
+            }
+
+            vector<Command *> commands = recursiveParse(conditonCommands);
+
+            ConditionCommand * conditionCommand;
+
+            if(token == WHILE){
+                conditionCommand = new WhileCommand(commands,condition);
+            } else{
+                //if token == IF
+                conditionCommand = new IfCommand(commands,condition);
+            }
+
+            commandsForExecute.push_back(conditionCommand);
+
+        } else if(token == OPEN_DATA_SERVER){
+
+            string param1 = *(++it);
+            Expression* portExp = stringToMathExpression(param1);
+
+            string param2 = *(++it);
+            Expression* readsPsExp = stringToMathExpression(param2);
+
+            OpenDataServer* openDataServerCommand = new OpenDataServer(portExp, readsPsExp);
+            commandsForExecute.push_back(openDataServerCommand);
+
+        } else if(token == CONNECT){
+
+            string ipAddress = *(++it);
+
+            string param2 = *(++it);
+            Expression* portExp = stringToMathExpression(param2);
+
+            ConnectCommand* connectCommand = new ConnectCommand(ipAddress,portExp);
+            commandsForExecute.push_back(connectCommand);
+
+        } else if(token == VAR){
+
+            string symbolName = *(++it);
+
+            // token = "=" , skip that token. if not ASSIGNMENT throw exaption
+            if(*(++it) != ASSIGNMENT) throw  "invalid token";
+
+            string param = *(++it);
+
+            VarCommand* varCommand;
+
+            //bind symbol
+            if(param == BIND){
+
+                string symbolToBindTo;
+
+                string param2 = *(++it);
+                //if the token is of the form "bla-bla", the token is path name
+                if(Utils::isStringToken(param2)){
+                    symbolToBindTo = Utils::contentOfStringToken(param2);
+
+                } else{
+                    //bind to regular symbol
+                    symbolToBindTo = param2;
+                }
+                varCommand = new  VarCommand(symbolName,symbolToBindTo);
+
+            } else{
+                //the token is math expression
+                Expression* mathExp = stringToMathExpression(param);
+                varCommand = new VarCommand(symbolName, mathExp);
+
+            }
+            commandsForExecute.push_back(varCommand);
+
+        }else if(SymbolsTable::getInstance()->isSymbolExist(token)){
+            //assignment (variable = value)
+            // token = "=" , skip that token. if not ASSIGNMENT throw exaption
+            if(*(++it) != ASSIGNMENT) throw  "invalid token";
+
+            string symbolName = token;
+
+            string param = *(++it);
+            Expression* valueExp = stringToMathExpression(param);
+
+            AssignmentCommand* assignmentCommand = new AssignmentCommand(symbolName, valueExp);
+            commandsForExecute.push_back(assignmentCommand);
+
+        } else if(token == PRINT){
+
+            //token to print
+            string param = *(++it);
+
+            Command* printCommand;
+
+            if(Utils::isStringToken(param)){
+                string strToPrint = Utils::contentOfStringToken(param);
+                printCommand = new PrintStringCommand(strToPrint);
+            } else{
+                Expression* expToPrint = stringToMathExpression(param);
+                printCommand = new PrintExpressionCommand(expToPrint);
+            }
+            commandsForExecute.push_back(printCommand);
+
+        } else if(token == SLEEP){
+
+
+
+        }
+
+
+
+
+
+    }
+
+}
+
+Expression* Parser::stringToMathExpression(string str){
+    auto postfix = ShuntingYard::convertToPostfix(str);
+    return postfixToMathExpression(postfix);
+}
 
 /**
  *
@@ -183,7 +392,7 @@ vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
 
 
 
-Expression* Parser::stringToMathExpression(stack<string> &tokens){
+Expression* Parser::postfixToMathExpression(stack<string> &tokens){
 
     if(tokens.empty()){
         throw "unknown problem";
@@ -193,27 +402,27 @@ Expression* Parser::stringToMathExpression(stack<string> &tokens){
     tokens.pop();
 
     if(token == "+"){
-        Expression* rightExp  = stringToMathExpression(tokens);
-        Expression* leftExp  = stringToMathExpression(tokens);
+        Expression* rightExp  = postfixToMathExpression(tokens);
+        Expression* leftExp  = postfixToMathExpression(tokens);
 
         return new Plus(leftExp,rightExp);
     } else if(token == "-"){
-        Expression* rightExp  = stringToMathExpression(tokens);
-        Expression* leftExp  = stringToMathExpression(tokens);
+        Expression* rightExp  = postfixToMathExpression(tokens);
+        Expression* leftExp  = postfixToMathExpression(tokens);
 
         return new Minus(leftExp,rightExp);
     } else if(token == "*"){
-        Expression* rightExp  = stringToMathExpression(tokens);
-        Expression* leftExp  = stringToMathExpression(tokens);
+        Expression* rightExp  = postfixToMathExpression(tokens);
+        Expression* leftExp  = postfixToMathExpression(tokens);
         return new Multi(leftExp,rightExp);
     } else if(token == "/"){
-        Expression* rightExp  = stringToMathExpression(tokens);
-        Expression* leftExp  = stringToMathExpression(tokens);
+        Expression* rightExp  = postfixToMathExpression(tokens);
+        Expression* leftExp  = postfixToMathExpression(tokens);
         return new Div(leftExp,rightExp);
     } else if(token.length() > 1 && token.at(0) == '-'){
         string tokenWithoutNeg = token.substr(1 ,token.length() - 1);
         tokens.push(tokenWithoutNeg);
-        Expression* unaryExp  = stringToMathExpression(tokens);
+        Expression* unaryExp  = postfixToMathExpression(tokens);
         return new Neg(unaryExp);
     } else if (SymbolsTable::getInstance()->isSymbolExist(token)){
         return new Var(token);

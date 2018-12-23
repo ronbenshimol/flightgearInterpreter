@@ -6,15 +6,15 @@
 #define FLIGHTGEARINTERPRETER_IFCOMMAND_H
 
 
-#include "ConditionParser.h"
+#include "ConditionCommand.h"
 
 using namespace std;
 
-class IfCommand : public ConditionParser {
+class IfCommand : public ConditionCommand {
 
 public:
 
-    IfCommand(vector<Command *> commands, BooleanExpression *condition) : ConditionParser(move(commands), condition) {}
+    IfCommand(vector<Command *> commands, BooleanExpression *condition) : ConditionCommand(move(commands), condition) {}
 
     double execute() override {
         if (this->isConditionalSatisfied()){

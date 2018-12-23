@@ -13,7 +13,9 @@
 #include <algorithm>
 
 
+#include "ShuntingYard.h"
 #include "Expression.h"
+#include "Command.h"
 #include "Utils.h"
 #include "Plus.h"
 #include "Minus.h"
@@ -23,7 +25,22 @@
 #include "Num.h"
 #include "Var.h"
 #include "SymbolsTable.h"
-
+#include "BooleanExpression.h"
+#include "Greater.h"
+#include "GreaterEquals.h"
+#include "Equals.h"
+#include "NotEquals.h"
+#include "Lesser.h"
+#include "LesserEquals.h"
+#include "ConditionCommand.h"
+#include "WhileCommand.h"
+#include "IfCommand.h"
+#include "OpenDataServer.h"
+#include "ConnectCommand.h"
+#include "VarCommand.h"
+#include "AssignmentCommand.h"
+#include "PrintStringCommand.h"
+#include "PrintExpressionCommand.h"
 
 
 #define OPEN_DATA_SERVER "openDataServer"
@@ -62,6 +79,11 @@ class Parser {
     vector<string> removeCommas(vector<string> vec);
 
     vector<string> mergeBooleanIndependent(vector<string> vec);
+
+    vector<Command *> recursiveParse(vector<string> &tokens);
+
+    Expression* postfixToMathExpression(stack<string> &tokens);
+    Expression* stringToMathExpression(string str);
 
 public:
     //Parser();

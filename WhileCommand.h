@@ -6,13 +6,13 @@
 #define FLIGHTGEARINTERPRETER_WHILECOMMAND_H
 
 
-#include "ConditionParser.h"
+#include "ConditionCommand.h"
 
-class WhileCommand : public ConditionParser {
+class WhileCommand : public ConditionCommand {
 
 public:
 
-    WhileCommand(vector<Command *> commands, BooleanExpression *condition) : ConditionParser(move(commands),
+    WhileCommand(vector<Command *> commands, BooleanExpression *condition) : ConditionCommand(move(commands),
                                                                                                     condition) {}
 
     double execute() override {

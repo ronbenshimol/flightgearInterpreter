@@ -28,7 +28,7 @@
         $$ee$c   .d"                     "*$.        3.
         ^*$E")$..$"                         *   .ee==d%
            $.d$$$*                           *  J$$$e*
-            """""    ENTER AT YOU OWN RISK!   "$$$"
+            """""    ENTER AT YOUR OWN RISK!   "$$$"
 
 */
 
