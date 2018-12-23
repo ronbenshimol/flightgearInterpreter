@@ -60,3 +60,14 @@ stack<string> Utils::fromVectorToStack(vector<string> vec) {
 
 }
 
+
+bool Utils::isStringToken(string s) {
+    return s.front() == '"' && s.back() == '"';
+}
+
+string Utils::contentOfStringToken(string s) {
+    if (!Utils::isStringToken(s))
+        throw "contentOfStringToken only usable on a string token!";
+    return s.substr(1,s.length() - 2);
+}
+
