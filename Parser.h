@@ -10,6 +10,8 @@
 #include <map>
 #include <queue>
 #include <stack>
+#include <algorithm>
+
 
 #include "Expression.h"
 #include "Utils.h"
@@ -21,6 +23,8 @@
 #include "Num.h"
 #include "Var.h"
 #include "SymbolsTable.h"
+
+
 
 #define OPEN_DATA_SERVER "openDataServer"
 #define CONNECT "connect"
@@ -54,6 +58,8 @@ class Parser {
     bool isProgramSavedWord(string s);
 
     vector<string> minusDemandsAssurer(vector<string> expVector);
+
+    vector<string> removeCommas(vector<string> vec);
 
 public:
     //Parser();

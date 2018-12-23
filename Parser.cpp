@@ -108,16 +108,37 @@ vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
     for(auto s: vecOnBuild)
         finalVec.push_back(s.substr(0, s.length() - 1));
 
-    return minusDemandsAssurer(finalVec);
+    return removeCommas(minusDemandsAssurer(finalVec));
 }
 
+
+vector<string> Parser::removeCommas(vector<string> vec) {
+
+    vector<string> ret;
+
+    for (auto s: vec){
+        string toAdd;
+        if(s.front() == ','){
+            toAdd = s.substr(1 , s.length() - 1);
+        } else{
+            toAdd = s;
+        }
+        ret.push_back(toAdd);
+
+    }
+    return ret;
+}
 
 
 // TODO create a class
 bool Parser::isProgramSavedWord(string s) {
 
-    vector<string> savedWords = {};
+    vector<string> savedWords = {OPEN_DATA_SERVER, CONNECT, ASSIGNMENT, BIND, VAR, WHILE, IF, PRINT, SLEEP,
+                                 LESSER, LESSER_EQUALS, GREATER, GREATER_EQUALS, EQUALS, NOT_EQUALS, EXIT};
 
+    auto it = std::find(savedWords.begin(), savedWords.end(), s);
+
+    return !(it == savedWords.end());
 }
 
 

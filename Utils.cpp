@@ -25,11 +25,13 @@ const std::vector<std::string> Utils::explode(std::string &s, const char &c){
 }
 
 bool Utils::isMathOperator(char c) {
-    return (c == '+' || c == '-' || c =='/' || c == '*');
+    return (c == '+' || c == '-' || c =='/' || c == '*' );
 }
 
+//TODO ',' case in parser!!!
 bool Utils::isAnyOperator(char c) {
-    return isMathOperator(c) || c == '=' || c == '(' || c == ')' || c == ',' || c == '\n';
+    return isMathOperator(c) || c == '=' || c == '(' || c == ')' || c == ',' ||
+    c == '\n' || c == '<' || c == '>' || c == '!' || c == '{' || c == '}' ;
 }
 
 bool Utils::isPreviousTokenExpectedOperator(char c) {
