@@ -118,7 +118,6 @@ bool Parser::isProgramSavedWord(string s) {
 
     vector<string> savedWords = {};
 
-    emo";
 }
 
 
