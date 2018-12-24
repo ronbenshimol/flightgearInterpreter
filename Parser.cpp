@@ -40,26 +40,6 @@
 #define OPEN_DATA_SERVER "openDataServer"
 
 
-
-//Parser::Parser() {
-//
-//    map<string, Expression *> mapToAssign;
-//
-//    //mapToAssign.insert(pair<string, Command>(OPEN_DATA_SERVER, openDataServerCommand()))
-//
-//
-//    mapToAssign.insert(pair<string, Expression *>(demo, );
-//
-//    //TODO insert here any additional command to map
-//
-//    this->stringToExpressionMap = mapToAssign;
-//
-//    // TODO delete
-//}
-
-
-
-
 void Parser::parse(vector<string> lexed) {
 
     stack<string> tokensStack = Utils::fromVectorToStack(lexed);
@@ -67,12 +47,16 @@ void Parser::parse(vector<string> lexed) {
 
     vector<string> allLinesExpStrings;
 
-
-
     // vector of parameters to be parsed to expressions
     vector<string> independentExpStrings = toIndependentExpStrings(tokensStack);
 
+    vector<Command *> commandsToExecute = recursiveParse(independentExpStrings);
+
+
     string s = "cool";
+
+
+
     //TODO finish...
 
 }
@@ -191,7 +175,7 @@ vector<Command *> Parser::recursiveParse(vector<string> &tokens){
 
                 string param2 = *(++it);
                 //if the token is of the form "bla-bla", the token is path name
-                if(Utils::isStringToken(param2)){
+                if(Utils::isStringToken(param2)){ //TODO it returns with a whitespace before  - is it ok?
                     symbolToBindTo = Utils::contentOfStringToken(param2);
 
                 } else{
@@ -248,6 +232,8 @@ vector<Command *> Parser::recursiveParse(vector<string> &tokens){
 
 
     }
+
+    return commandsForExecute;
 
 }
 
@@ -317,7 +303,42 @@ vector<string> Parser::toIndependentExpStrings(stack<string> tokensStack) {
     for(auto s: vecOnBuild)
         finalVec.push_back(s.substr(0, s.length() - 1));
 
-    return mergeBooleanIndependent(removeCommas(minusDemandsAssurer(finalVec)));
+    return mergePartOfStringTokens(mergeBooleanIndependent(removeCommas(minusDemandsAssurer(finalVec))));
+}
+
+vector<string> Parser::mergePartOfStringTokens(vector<string> vec) {
+
+    vector<string> ans;
+
+    bool isInsideString = false;
+
+    auto it = vec.begin();
+    string toAdd = "";
+
+    for (;it != vec.end() ; it++){
+        toAdd += *it;
+
+        if(it->front() == '"' && isInsideString){
+            isInsideString = !isInsideString;
+            toAdd = Utils::eraseSpaces(toAdd);
+            ans.push_back(toAdd);
+            toAdd = "";
+            continue;
+        }
+        if (it->front() == '"' && !isInsideString){
+            isInsideString = !isInsideString;
+            continue;
+        }
+
+        if(isInsideString){
+            continue;
+        }
+        ans.push_back(toAdd);
+        toAdd = "";
+    }
+    return ans;
+
+
 }
 
 vector<string> Parser::mergeBooleanIndependent(vector<string> vec) {

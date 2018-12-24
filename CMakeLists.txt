@@ -11,4 +11,4 @@ add_executable(flightgearInterpreter
         Multi.h Neg.h BooleanExpression.h Num.h OpenDataServer.h Greater.h GreaterEquals.h Lesser.h
         LesserEquals.h Equals.h NotEquals.h Command.h ConditionCommand.h IfCommand.h
         WhileCommand.h DemoCommand.h VarCommand.h Var.h PrintStringCommand.h SleepCommand.h
-        PrintExpressionCommand.h ProgramMain.cpp AssignmentCommand.h ConnectCommand.h ExitCommand.h)
+        PrintExpressionCommand.h AssignmentCommand.h ConnectCommand.h ExitCommand.h)

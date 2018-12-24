@@ -28,10 +28,10 @@ bool Utils::isMathOperator(char c) {
     return (c == '+' || c == '-' || c =='/' || c == '*' );
 }
 
-//TODO ',' case in parser!!!
+
 bool Utils::isAnyOperator(char c) {
     return isMathOperator(c) || c == '=' || c == '(' || c == ')' || c == ',' ||
-    c == '\n' || c == '<' || c == '>' || c == '!' || c == '{' || c == '}' ;
+    c == '\n' || c == '<' || c == '>' || c == '!' || c == '{' || c == '}' || c == '"' ;
 }
 
 bool Utils::isFirstBooleanOperator(char c) {
@@ -49,6 +49,16 @@ bool Utils::isPreviousTokenExpectedOperator(char c) {
 
 bool Utils::isAnotherTokenExpectedOperator(char c) {
     return (isMathOperator(c) || c == '(');
+}
+
+
+string Utils::eraseSpaces(string s) {
+
+    vector<string> exploded = explode(s , ' ');
+    string ans;
+    for (auto a: exploded)
+        ans.append(a);
+    return ans;
 }
 
 stack<string> Utils::fromVectorToStack(vector<string> vec) {

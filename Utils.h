@@ -6,6 +6,8 @@
 #include <stack>
 #include <list>
 
+
+
 using namespace std;
 
 class Utils {
@@ -21,6 +23,7 @@ public:
     static bool isSecondBooleanOperator(char c);
     static bool isStringToken(string s);
     static string contentOfStringToken(string s);
+    static string eraseSpaces(string s);
 
 
     static stack<string> fromVectorToStack(vector<string> vec);

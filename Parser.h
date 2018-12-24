@@ -59,16 +59,13 @@
 #define EQUALS "=="
 #define NOT_EQUALS "!="
 #define EXIT "exit"
+#define QUOTE "\""
 
 
 
 using namespace std;
 
 class Parser {
-
-    map<string, Expression *> stringToExpressionMap;
-
-    stack<Expression *> *expQueue;
 
     vector<string> toIndependentExpStrings(stack<string> tokensStack);
 
@@ -80,20 +77,17 @@ class Parser {
 
     vector<string> mergeBooleanIndependent(vector<string> vec);
 
+    vector<string> mergePartOfStringTokens(vector<string> vec);
+
     vector<Command *> recursiveParse(vector<string> &tokens);
 
     Expression* postfixToMathExpression(stack<string> &tokens);
+
     Expression* stringToMathExpression(string str);
 
 public:
-    //Parser();
 
     void parse(vector<string> lexed);
-
-    //TODO make private after tests
-    Expression* stringToMathExpression(stack<string> &tokens);
-
-
 
 };
 
