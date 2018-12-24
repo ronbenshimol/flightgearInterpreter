@@ -24,7 +24,7 @@ public:
 
     double execute() override {
 
-        double value = exp->calculate();
+        double value = exp->calculate(); // calc the right side to assign
         string path = SymbolsTable::getInstance()->getSymbolPath(symbol);
         if(path != ""){
                 DataWriterClient* client = SymbolsTable::getInstance()->getClient();

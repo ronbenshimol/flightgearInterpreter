@@ -76,16 +76,10 @@ bool DataWriterClient::open() {
     return true;
 }
 
-
-
-
 bool DataWriterClient::closeClient() {
     close(this->sockfd);
     return true;
 }
-
-
-
 
 
 bool DataWriterClient::send(string message) {

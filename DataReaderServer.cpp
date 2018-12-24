@@ -112,7 +112,7 @@ void DataReaderServer::openServer(){
 
     std::cout << "connected to client!" << std::endl;
 
-    //if connections with the client faild
+    //if connections with the client failed
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
