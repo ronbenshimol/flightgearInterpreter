@@ -23,7 +23,7 @@ void Parser::parse(vector<string> lexed) {
 
 
 void Parser::executeCommands(vector<Command *> commands) {
-    
+
 
     for (auto c: commands){
         c->execute();
