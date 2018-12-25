@@ -63,11 +63,14 @@ public:
 
         DataServer::getInstance(port);
         DataServer::getInstance()->openServer();
+        DataServer::getInstance()->receiveOnce();
 
         //starting receiving data from the simulator in thread
         serverThread = std::thread([](){
             DataServer::getInstance()->startReceive();
         });
+
+
 
         return 0;
 

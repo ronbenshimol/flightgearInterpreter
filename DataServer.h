@@ -27,6 +27,7 @@ public:
     static void destroyInstance();
 
     void openServer();
+    void receiveOnce();
     void startReceive();
     void stopReceive();
     void closeServer();

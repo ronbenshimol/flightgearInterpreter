@@ -53,6 +53,13 @@ void DataServer::closeServer(){
 
 }
 
+void DataServer::receiveOnce(){
+
+    std::string line = TcpServer::readLine(this->socketId);
+    updateSymbolsValues(line);
+
+}
+
 void DataServer::startReceive(){
 
     while(!endServerFlag){
