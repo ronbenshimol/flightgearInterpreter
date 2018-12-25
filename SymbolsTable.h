@@ -30,7 +30,9 @@ private:
 
     std::map<std::string, SymbolData*> symbolsMap;
     DataWriterClient *client;
-    std::mutex mtx; //lock for symbols sets
+    std::mutex mtx1; //lock for symbols sets
+    std::mutex mtx2; //lock for symbols sets
+    std::mutex mtx3; //lock for symbols sets
 
 
 public:

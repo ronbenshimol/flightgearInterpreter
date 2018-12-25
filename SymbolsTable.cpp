@@ -110,23 +110,23 @@ SymbolsTable::SymbolsTable(){
  *
  */
 void SymbolsTable::setSymbol(std::string symbol, double value, std::string path){
-     mtx.lock();
+     mtx1.lock();
     if(isSymbolExist(symbol)){
         symbolsMap.at(symbol)->value = value;
     } else{
         symbolsMap[symbol] = new SymbolData(value, path);
     }
-    mtx.unlock();
+    mtx1.unlock();
 }
 
 void SymbolsTable::setSymbol(std::string symbol, double value){
-    mtx.lock();
+    mtx2.lock();
     if(isSymbolExist(symbol)){
         symbolsMap.at(symbol)->value = value;
     } else{
         symbolsMap[symbol] = new SymbolData(value,"");
     }
-    mtx.unlock();
+    mtx2.unlock();
 }
 
 double SymbolsTable::getSymbolValue(std::string symbol){
@@ -138,7 +138,7 @@ string SymbolsTable::getSymbolPath(std::string symbol){
 }
 
 void SymbolsTable::bindNewSymbolToExistSymbol(std::string newSymbol, std::string existSymbol){
-    mtx.lock();
+    mtx3.lock();
     if(isSymbolExist(existSymbol)){
         symbolsMap[newSymbol] = symbolsMap[existSymbol];
     }
@@ -146,7 +146,7 @@ void SymbolsTable::bindNewSymbolToExistSymbol(std::string newSymbol, std::string
         //create and bind new symbol to path
         setSymbol(newSymbol,0,existSymbol);
     }
-    mtx.unlock();
+    mtx3.unlock();
 }
 
 void SymbolsTable::printSymbols(){
