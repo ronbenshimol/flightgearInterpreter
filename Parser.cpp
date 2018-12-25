@@ -88,7 +88,7 @@ vector<Command *> Parser::recursiveParse(vector<string> &tokens){
             string conditionToken = *(++it);
 
             string rightExpToken = *(++it);
-            Expression* rightExp = stringToMathExpression(leftExpToken);
+            Expression* rightExp = stringToMathExpression(rightExpToken);
 
             int endOfBrackets = 0;
             string currentToken = *(++it);
