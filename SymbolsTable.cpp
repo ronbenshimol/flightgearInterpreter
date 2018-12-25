@@ -177,9 +177,6 @@ SymbolsTable::~SymbolsTable(){
         delete elem.second;
     }
 
-    for( auto& symbolsPair : symbolsMap ){
-        delete symbolsPair.second;
-    }
     symbolsMap.clear();
 
 }
