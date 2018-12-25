@@ -174,9 +174,8 @@ SymbolsTable::~SymbolsTable(){
     delete this->client;
 
     for( auto& symbolsPair : symbolsMap ){
-
         delete symbolsPair.second;
-
     }
+    symbolsMap.clear();
 
 }
