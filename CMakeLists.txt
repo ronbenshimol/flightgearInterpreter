@@ -10,5 +10,5 @@ add_executable(flightgearInterpreter
         ShuntingYard.cpp ShuntingYard.h UnaryExpression.h BinaryExpression.h Plus.h Minus.h Div.h
         Multi.h Neg.h BooleanExpression.h Num.h OpenDataServer.h Greater.h GreaterEquals.h Lesser.h
         LesserEquals.h Equals.h NotEquals.h Command.h ConditionCommand.h IfCommand.h
-        WhileCommand.h DemoCommand.h VarCommand.h Var.h PrintStringCommand.h SleepCommand.h
-        PrintExpressionCommand.h AssignmentCommand.h ConnectCommand.h ExitCommand.h)
+        WhileCommand.h VarCommand.h Var.h PrintStringCommand.h SleepCommand.h
+        PrintExpressionCommand.h AssignmentCommand.h ConnectCommand.h)

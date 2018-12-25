@@ -34,7 +34,7 @@
 
 
 #include "Parser.h"
-
+#include "SleepCommand.h"
 
 
 #define OPEN_DATA_SERVER "openDataServer"
@@ -60,6 +60,18 @@ void Parser::parse(vector<string> lexed) {
     //TODO finish...
 
 }
+
+
+void Parser::executeCommands(vector<Command *> commands) {
+    //TODO finish
+
+    for (auto c: commands){
+        c->execute();
+    }
+
+}
+
+
 
 vector<Command *> Parser::recursiveParse(vector<string> &tokens){
 
@@ -175,7 +187,7 @@ vector<Command *> Parser::recursiveParse(vector<string> &tokens){
 
                 string param2 = *(++it);
                 //if the token is of the form "bla-bla", the token is path name
-                if(Utils::isStringToken(param2)){ //TODO it returns with a whitespace before  - is it ok?
+                if(Utils::isStringToken(param2)){
                     symbolToBindTo = Utils::contentOfStringToken(param2);
 
                 } else{
@@ -223,7 +235,11 @@ vector<Command *> Parser::recursiveParse(vector<string> &tokens){
 
         } else if(token == SLEEP){
 
+            string param = *(++it);
 
+            Expression* exp = stringToMathExpression(param);
+            Command *sleep = new SleepCommand(exp);
+            commandsForExecute.push_back(sleep);
 
         }
 
@@ -236,6 +252,7 @@ vector<Command *> Parser::recursiveParse(vector<string> &tokens){
     return commandsForExecute;
 
 }
+
 
 Expression* Parser::stringToMathExpression(string str){
     auto postfix = ShuntingYard::convertToPostfix(str);

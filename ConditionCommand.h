@@ -23,7 +23,12 @@ protected:
         return condition->calculate() == 1;
     }
 
-
+public:
+    ~ConditionCommand() override {
+        for(auto c: commands)
+            delete(c);
+        delete(condition);
+    }
 
 
 };

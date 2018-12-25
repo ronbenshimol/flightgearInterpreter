@@ -32,6 +32,9 @@ public:
         return 0;
     }
 
+    ~SleepCommand() override {
+        delete exp;
+    }
 };
 
 

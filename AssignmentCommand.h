@@ -37,6 +37,12 @@ public:
 
         return 0;
     }
+
+    ~AssignmentCommand() override {
+            delete exp;
+    }
+
+
 };
 
 

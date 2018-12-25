@@ -28,6 +28,9 @@ public:
         return 0;
     }
 
+    ~PrintExpressionCommand() override {
+        delete(exp);
+    }
 };
 
 

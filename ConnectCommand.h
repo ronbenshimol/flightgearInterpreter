@@ -26,7 +26,9 @@ public:
         return 0;
     }
 
-
+    ~ConnectCommand() override {
+        delete(serverPort);
+    }
 };
 
 

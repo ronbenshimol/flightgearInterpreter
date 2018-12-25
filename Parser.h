@@ -59,7 +59,7 @@
 #define EQUALS "=="
 #define NOT_EQUALS "!="
 #define EXIT "exit"
-#define QUOTE "\""
+
 
 
 
@@ -84,6 +84,8 @@ class Parser {
     Expression* postfixToMathExpression(stack<string> &tokens);
 
     Expression* stringToMathExpression(string str);
+
+    void executeCommands(vector<Command *> commands);
 
 public:
 
