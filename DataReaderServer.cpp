@@ -121,7 +121,7 @@ void DataReaderServer::openServer(){
 
     std::string dataStr;
 
-    while(1)
+    while(true)
     {
         char buf[1024];
         int numBytesRead = recv(newsockfd, buf, sizeof(buf), 0);
@@ -134,13 +134,7 @@ void DataReaderServer::openServer(){
                 {
                     if (dataStr.length() > 0)
                     {
-                        //std::cout << "new data received: " << dataStr << std::endl;
-
-                        //separate values by csv format from string
-                        std::vector<std::string> values = Utils::explode(dataStr,',');
-
-                        updateSymbolsValues(values);
-
+                        updateSymbolsValues(dataStr);
                         dataStr = "";
                     }
                 }
@@ -152,11 +146,15 @@ void DataReaderServer::openServer(){
             std::cout << "Socket closed or socket error!" << std::endl;
             break;
         }
+
     }
 
 }
 
-void DataReaderServer::updateSymbolsValues(std::vector<std::string> valuesVec){
+void DataReaderServer::updateSymbolsValues(std::string dataStr){
+
+    //separate values by csv format from string
+    std::vector<std::string> valuesVec = Utils::explode(dataStr,',');
 
     for (int i = 0; i < valuesVec.size(); ++i) {
 

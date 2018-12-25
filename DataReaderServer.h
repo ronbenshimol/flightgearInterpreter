@@ -21,7 +21,7 @@ private:
     int numOfReadsPs;
     std::vector<int> opennedSockets;
 
-    void updateSymbolsValues(std::vector<std::string> valuesVec);
+    void updateSymbolsValues(std::string dataStr);
 
 
 public:

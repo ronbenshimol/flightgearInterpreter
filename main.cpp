@@ -66,11 +66,18 @@ int main(int argc, char **argv) {
     parser.parse(lexed);
 
 
-    std::cout << "Hello, World!" << std::endl;
 
-
-
-
+//    OpenDataServer openDataServerCommand(new Num(5400),new Num(10));
+//
+//    openDataServerCommand.execute();
+//
+//    for (int i = 0; i < 100; ++i) {
+//
+//        cout << "**************************** " << i << endl;
+//        sleep(0.2);
+//
+//    }
+//
 
 
 

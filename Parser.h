@@ -41,6 +41,7 @@
 #include "AssignmentCommand.h"
 #include "PrintStringCommand.h"
 #include "PrintExpressionCommand.h"
+#include "SleepCommand.h"
 
 
 #define OPEN_DATA_SERVER "openDataServer"

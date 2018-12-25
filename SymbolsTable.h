@@ -1,6 +1,7 @@
 #ifndef FLIGHTGEARINTERPRETER_SYMBOLSTABLE_H
 #define FLIGHTGEARINTERPRETER_SYMBOLSTABLE_H
 
+#include <mutex>
 #include <string>
 #include <map>
 #include <iostream>
@@ -29,11 +30,13 @@ private:
 
     std::map<std::string, SymbolData*> symbolsMap;
     DataWriterClient *client;
+    std::mutex mtx; //lock for symbols sets
 
 
 public:
     /* Static access method. */
     static SymbolsTable *getInstance();
+    static void destroyInstance();
 
     //static std::string paths[23];
     static std::vector<std::string> paths;
@@ -45,12 +48,10 @@ public:
     void bindNewSymbolToExistSymbol(std::string newSymbol, std::string existSymbol);
     void printSymbols();
     bool isSymbolExist(std::string symbol);
-
     DataWriterClient *getClient() const;
-
     void setClient(DataWriterClient *client);
 
-
+    ~SymbolsTable();
 };
 
 

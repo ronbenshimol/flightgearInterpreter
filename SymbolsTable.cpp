@@ -58,7 +58,7 @@ std::vector<std::string> SymbolsTable::paths(
                 "/controls/flight/elevator",
                 "/controls/flight/rudder",
                 "/controls/flight/flaps",
-                "/controls/engines/engine/throttle",
+                "/controls/engines/current-engine/throttle",
                 "/engines/engine/rpm"
 
         });
@@ -69,7 +69,6 @@ SymbolsTable *SymbolsTable::instance = 0;
 
 SymbolsTable *SymbolsTable::getInstance()
 {
-    //TODO: delete instance at the end
 
     //singleton instance:
     if (instance == NULL)
@@ -77,6 +76,15 @@ SymbolsTable *SymbolsTable::getInstance()
         instance = new SymbolsTable();
     }
     return instance;
+}
+
+void SymbolsTable::destroyInstance(){
+    //delete singleton instance
+    if(instance != 0)
+    {
+        delete instance;
+        instance = 0;
+    }
 }
 
 SymbolsTable::SymbolsTable(){
@@ -102,20 +110,23 @@ SymbolsTable::SymbolsTable(){
  *
  */
 void SymbolsTable::setSymbol(std::string symbol, double value, std::string path){
+     mtx.lock();
     if(isSymbolExist(symbol)){
         symbolsMap.at(symbol)->value = value;
     } else{
         symbolsMap[symbol] = new SymbolData(value, path);
     }
+    mtx.unlock();
 }
 
 void SymbolsTable::setSymbol(std::string symbol, double value){
+    mtx.lock();
     if(isSymbolExist(symbol)){
         symbolsMap.at(symbol)->value = value;
     } else{
         symbolsMap[symbol] = new SymbolData(value,"");
     }
-
+    mtx.unlock();
 }
 
 double SymbolsTable::getSymbolValue(std::string symbol){
@@ -127,6 +138,7 @@ string SymbolsTable::getSymbolPath(std::string symbol){
 }
 
 void SymbolsTable::bindNewSymbolToExistSymbol(std::string newSymbol, std::string existSymbol){
+    mtx.lock();
     if(isSymbolExist(existSymbol)){
         symbolsMap[newSymbol] = symbolsMap[existSymbol];
     }
@@ -134,6 +146,7 @@ void SymbolsTable::bindNewSymbolToExistSymbol(std::string newSymbol, std::string
         //create and bind new symbol to path
         setSymbol(newSymbol,0,existSymbol);
     }
+    mtx.unlock();
 }
 
 void SymbolsTable::printSymbols(){
@@ -153,4 +166,17 @@ DataWriterClient *SymbolsTable::getClient() const {
 
 void SymbolsTable::setClient(DataWriterClient *client) {
     SymbolsTable::client = client;
+}
+
+SymbolsTable::~SymbolsTable(){
+
+    this->client->closeClient();
+    delete this->client;
+
+    for( auto& symbolsPair : symbolsMap ){
+
+        delete symbolsPair.second;
+
+    }
+
 }

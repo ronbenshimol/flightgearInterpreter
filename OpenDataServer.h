@@ -35,17 +35,17 @@
 #ifndef FLIGHTGEARINTERPRETER_OPENDATASERVER_H
 #define FLIGHTGEARINTERPRETER_OPENDATASERVER_H
 
-#include <thread>
-
 #include "BinaryExpression.h"
-#include "DataReaderServer.h"
+#include "DataServer.h"
 #include "SymbolsTable.h"
 #include "Command.h"
+#include <thread>
 
 class OpenDataServer : public Command {
 
     Expression *portExpression;
     Expression *readePsExpression;
+    std::thread serverThread;
 
 public:
 
@@ -61,14 +61,33 @@ public:
         int port = (int)portExpression->calculate();
         int numOfReads = (int)readePsExpression->calculate();
 
-        std::thread serverThread([](int port, int numOfReadsPS){
+        DataServer::getInstance(port);
+        DataServer::getInstance()->openServer();
 
-            DataReaderServer server(port,numOfReadsPS);
-            server.openServer();
-
-        },port,numOfReads);
+        //starting receiving data from the simulator in thread
+        serverThread = std::thread([](){
+            DataServer::getInstance()->startReceive();
+        });
 
         return 0;
+
+    }
+
+public:
+
+    ~OpenDataServer() override {
+
+        delete portExpression;
+        delete readePsExpression;
+
+        //turn on the flag of stop recieving data in the server
+        DataServer::getInstance()->stopReceive();
+
+        //wait for the thread to end
+        serverThread.join();
+
+        //destroy the instance of the server
+        DataServer::destroyInstance();
     }
 
 };
