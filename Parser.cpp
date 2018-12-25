@@ -474,6 +474,8 @@ Expression* Parser::postfixToMathExpression(stack<string> &tokens){
 
 Parser::~Parser(){
 
+    SymbolsTable::destroyInstance();
+
     for (int i = 0; i < commandsToExecute.size(); ++i) {
         delete commandsToExecute[i];
     }
