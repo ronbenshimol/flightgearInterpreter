@@ -9,7 +9,7 @@
  */
 vector<string> Lexer::lexString(string line) {
 
-    vector<string> splitedVec = splitBy(line, ' ');
+    vector<string> splitedVec = splitBy(line, ' ', '\t');
     vector<string> splitedTouched;
 
     for(string s: splitedVec){
@@ -71,7 +71,7 @@ vector<string> Lexer::splitTouchingExpressions(string s) {
  * @param c
  * @return
  */
-vector<string> Lexer::splitBy(string &s, const char &c)
+vector<string> Lexer::splitBy(string &s, const char &c , char c2)
 {
     string buff{""};
     vector<string> v;
@@ -80,9 +80,9 @@ vector<string> Lexer::splitBy(string &s, const char &c)
 
     for (auto n : s)
     {
-        if (n != c)
+        if (n != c && n != c2)
             buff += n;
-        else if (n == c && buff != "")
+        else if ((n == c || n==c2) && buff != "")
         {
             v.push_back(buff);
             buff = "";

@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     string fileContent;
 
     fileContent = fromFile(fileName);
-    //fileContent = "bind \"/con/shnizel\"\nvar";
+    //fileContent = "\tbind \t\"/con/shnizel\"\nvar";
 
 
     vector<string> lexed = lexer.lexString(fileContent);

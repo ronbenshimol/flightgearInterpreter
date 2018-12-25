@@ -50,6 +50,12 @@ void Parser::parse(vector<string> lexed) {
     // vector of parameters to be parsed to expressions
     vector<string> independentExpStrings = toIndependentExpStrings(tokensStack);
 
+    for (int i = 0; i < independentExpStrings.size(); ++i) {
+
+        std::cout << independentExpStrings[i] << std::endl;
+
+    }
+
     vector<Command *> commandsToExecute = recursiveParse(independentExpStrings);
 
 

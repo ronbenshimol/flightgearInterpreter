@@ -12,7 +12,7 @@ using namespace std;
 class Lexer {
 
 
-    vector<string> virtual splitBy(string &s, const char &c);
+    vector<string> virtual splitBy(string &s, const char &c, char c2);
 
     vector<string> splitTouchingExpressions(string s);
 
