@@ -19,6 +19,7 @@ public:
 
     VarCommand(std::string name, Expression* value):name(name) {
         double val = value->calculate();
+        delete (value);
         SymbolsTable::getInstance()->setSymbol(name, val);
     }
 
