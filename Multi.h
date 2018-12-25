@@ -1,7 +1,3 @@
-//
-// Created by shaked on 12/20/18.
-//
-
 #ifndef FLIGHTGEARINTERPRETER_MULTI_H
 #define FLIGHTGEARINTERPRETER_MULTI_H
 

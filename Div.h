@@ -1,7 +1,3 @@
-//
-// Created by ron on 20/12/18.
-//
-
 #ifndef FLIGHTGEARINTERPRETER_DIV_H
 #define FLIGHTGEARINTERPRETER_DIV_H
 

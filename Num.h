@@ -1,7 +1,3 @@
-//
-// Created by shaked on 12/20/18.
-//
-
 #ifndef FLIGHTGEARINTERPRETER_NUM_H
 #define FLIGHTGEARINTERPRETER_NUM_H
 
