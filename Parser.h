@@ -68,6 +68,8 @@ using namespace std;
 
 class Parser {
 
+    vector<Command *> commandsToExecute;
+
     vector<string> toIndependentExpStrings(stack<string> tokensStack);
 
     bool isProgramSavedWord(string s);
@@ -91,7 +93,7 @@ class Parser {
 public:
 
     void parse(vector<string> lexed);
-
+    ~Parser();
 };
 
 

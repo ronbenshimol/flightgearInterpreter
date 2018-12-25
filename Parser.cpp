@@ -50,13 +50,10 @@ void Parser::parse(vector<string> lexed) {
     // vector of parameters to be parsed to expressions
     vector<string> independentExpStrings = toIndependentExpStrings(tokensStack);
 
-    vector<Command *> commandsToExecute = recursiveParse(independentExpStrings);
+    commandsToExecute = recursiveParse(independentExpStrings);
 
 
     executeCommands(commandsToExecute);
-
-
-    //TODO finish...
 
 }
 
@@ -473,74 +470,15 @@ Expression* Parser::postfixToMathExpression(stack<string> &tokens){
         return new Num(value);
     }
 
-    //TODO: take care of Neg (-)
-
 }
 
+Parser::~Parser(){
 
+    for (int i = 0; i < commandsToExecute.size(); ++i) {
+        delete commandsToExecute[i];
+    }
 
-
-
-
-
-
-//my main:
-
-
-//
-//#include <iostream>
-//
-//#include "Lexer.h"
-//#include "Parser.h"
-//
-//int main() {
-//    std::cout << "Hello, World!" << std::endl;
-//
-//    Lexer lex;
-//    Parser parser;
-//
-//    vector<string> lexed = lex.lexString("demo =0 + 2-3/2 2");
-//    parser.parse(lexed);
-//
-//    //-5 /\t8 * 12 22"
-//
-//    //parser.executeStringVector(lexed);
-//
-//    return 0;
-//}
-
-
-
-
-
-
-
-//
-//
-//
-///**
-// * gets a string vector from lexer
-// * creates the appropriate expressions/commands and executes.
-// */
-//void Parser::executeStringVector(vector<string> stringVec) {
-//
-//    //index that points on the next string to interpret
-//    int index = 0;
-//
-//    //interpret loop
-//    while (index < stringVec.size()){
-//
-//        Command *c = stringToExpressionMap.at(stringVec.at(index));
-//        if (c != NULL){
-//            // index is promoted by 1 + any additional required parameter used by execute
-//            index += c->execute(stringVec, index);
-//
-//        }
-//    }
-//
-//}
-
-
+}
 
 
 
