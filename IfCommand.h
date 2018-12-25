@@ -1,7 +1,3 @@
-//
-// Created by shaked on 12/22/18.
-//
-
 #ifndef FLIGHTGEARINTERPRETER_IFCOMMAND_H
 #define FLIGHTGEARINTERPRETER_IFCOMMAND_H
 

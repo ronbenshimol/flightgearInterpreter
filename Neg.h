@@ -1,7 +1,3 @@
-//
-// Created by shaked on 12/20/18.
-//
-
 #ifndef FLIGHTGEARINTERPRETER_NEG_H
 #define FLIGHTGEARINTERPRETER_NEG_H
 
