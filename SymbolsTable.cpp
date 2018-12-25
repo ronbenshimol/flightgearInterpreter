@@ -173,6 +173,10 @@ SymbolsTable::~SymbolsTable(){
     this->client->closeClient();
     delete this->client;
 
+    for(auto elem : symbolsMap) {
+        delete elem.second;
+    }
+
     for( auto& symbolsPair : symbolsMap ){
         delete symbolsPair.second;
     }
