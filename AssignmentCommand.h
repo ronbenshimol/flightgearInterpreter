@@ -13,6 +13,9 @@
 
 using namespace std;
 
+/**
+ * assignment command
+ */
 class AssignmentCommand : public Command {
 
     string symbol;
@@ -22,6 +25,10 @@ public:
 
     AssignmentCommand(string symbol, Expression *exp) : symbol(move(symbol)), exp(exp) {}
 
+    /**
+     * notifies client that value has changed
+     * @return 0
+     */
     double execute() override {
 
         double value = exp->calculate(); // calc the right side to assign

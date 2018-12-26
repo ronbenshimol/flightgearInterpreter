@@ -8,6 +8,9 @@
 
 #include "BinaryExpression.h"
 
+/**
+ * defines boolean expressions
+ */
 class BooleanExpression : public BinaryExpression {
 
 protected:

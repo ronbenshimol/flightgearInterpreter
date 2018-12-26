@@ -9,7 +9,9 @@
 
 using namespace std;
 
-
+/**
+ * wraps commands that are being executed with a condition
+ */
 class ConditionCommand : public Command {
 
 protected:

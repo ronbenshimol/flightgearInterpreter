@@ -5,7 +5,9 @@
 #ifndef FLIGHTGEARINTERPRETER_COMMAND_H
 #define FLIGHTGEARINTERPRETER_COMMAND_H
 
-
+/**
+ * commands are actions to execute
+ */
 class Command {
 
 public:
