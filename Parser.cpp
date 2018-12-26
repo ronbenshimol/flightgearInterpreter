@@ -374,18 +374,67 @@ vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
         string toAdd = "";
         auto it = s.begin();
 
-        for(; it != s.end() ; it++){
-            if(*(it-1) == '-' && ((it-1) == s.begin() || Utils::isAnyOperator(*(it-3))) ){
-                //delete the cur space by not adding him!
-                continue;
+        char firstToken = *(it++);
+        toAdd.push_back(firstToken);
+
+        if(it != s.end()){
+
+            char secondToken = *(it++);
+
+            //if the first token in the string is not '-' push the second token,
+            //if it is '-' don't push the second token because it is space chrecter, should be ignored
+            if(firstToken != '-'){
+                toAdd.push_back(secondToken);
             }
-            toAdd.push_back(*it);
+
         }
+
+        //for the rest of the tokens
+        while (it != s.end()){
+
+            //if the one token before was '-' and the second token before was operator (+/*/- etc)
+            if(Utils::isAnyOperator(*(it-2)) && *(it-1) == '-' ){
+                it++;//skip the current token as it is ' ' (space)
+            } else{
+                toAdd.push_back(*(it));
+                it++;
+            }
+
+        }
+
         assuredVec.push_back(toAdd);
     }
 
     return assuredVec;
 }
+
+
+//vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
+//
+//    vector<string> assuredVec;
+//
+//    for(auto s: expVector){
+//        string toAdd = "";
+//        auto it = s.begin();
+//
+//        for(; it != s.end() ; it++){
+//            if(*(it-1) == '-' && ((it-1) == s.begin() || Utils::isAnyOperator(*(it-3))) ){
+//                //delete the cur space by not adding him!
+//                continue;
+//            }
+//            toAdd.push_back(*it);
+//        }
+//        assuredVec.push_back(toAdd);
+//    }
+//
+//    return assuredVec;
+//}
+
+
+
+
+
+
 
 
 Expression* Parser::postfixToMathExpression(stack<string> &tokens){

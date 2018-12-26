@@ -138,8 +138,31 @@ SymbolsTable::~SymbolsTable(){
     this->client->closeClient();
     delete this->client;
 
+
+    vector<SymbolData*> elementsToDestroy;
     for(auto elem : symbolsMap) {
-        delete elem.second;
+
+        bool isElementExist = false;
+
+        for (int i = 0; i < elementsToDestroy.size(); ++i) {
+
+            if(elem.second == elementsToDestroy[i]){
+                isElementExist = true;
+                break;
+            }
+
+        }
+
+        if(!isElementExist){
+            elementsToDestroy.push_back(elem.second);
+        }
+
+    }
+
+    for (int i = 0; i < elementsToDestroy.size(); ++i) {
+
+        delete elementsToDestroy[i];
+
     }
 
     symbolsMap.clear();
