@@ -374,15 +374,33 @@ vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
         string toAdd = "";
         auto it = s.begin();
 
-        for(; it != s.end() ; it++){
-            bool first = it > s.begin() && *(it-1) == '-' && (it-1) == s.begin();
-            bool second = it > s.begin() + 2 && Utils::isAnyOperator(*(it-3));
-            if( first || second ){
-                //delete the cur space by not adding him!
-                continue;
+        char firstToken = *(it++);
+        toAdd.push_back(firstToken);
+
+        if(it != s.end()){
+
+            char secondToken = *(it++);
+
+            //if the first token in the string is not '-' push the second token,
+            //if it is '-' don't push the second token because it is space chrecter, should be ignored
+            if(firstToken != '-'){
+                toAdd.push_back(secondToken);
             }
-            toAdd.push_back(*it);
+
         }
+
+        while (it != s.end()){
+
+            //if the one token before was '-' and the second token before was operator (+/*/- etc)
+            if(Utils::isAnyOperator(*(it-2)) && *(it-1) == '-' ){
+                it++;//skip the current token as it is ' ' (space)
+            } else{
+                toAdd.push_back(*(it));
+                it++;
+            }
+
+        }
+
         assuredVec.push_back(toAdd);
     }
 
