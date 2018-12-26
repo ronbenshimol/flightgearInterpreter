@@ -18,7 +18,6 @@ class PrintStringCommand : public Command {
     string strToPrint;
 
 public:
-// TODO change to Expression and String?
 
     PrintStringCommand(string strToPrint) : strToPrint(move(strToPrint)) {}
 

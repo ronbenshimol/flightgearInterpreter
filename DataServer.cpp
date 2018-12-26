@@ -88,8 +88,6 @@ void DataServer::updateSymbolsValues(std::string dataStr){
 
         SymbolsTable::getInstance() -> setSymbol(symbolName, std::stod(valuesVec[i]), symbolName);
 
-        //TODO: temp line
-        SymbolsTable::getInstance() ->printSymbols();
     }
 
 }

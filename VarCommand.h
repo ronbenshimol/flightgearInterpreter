@@ -6,6 +6,9 @@
 #include "Expression.h"
 #include "SymbolsTable.h"
 
+/*
+ * command for variable, holds the var name and return the var value when execute
+ */
 class VarCommand: public Command{
 
     std::string name;

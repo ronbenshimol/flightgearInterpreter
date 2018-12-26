@@ -4,6 +4,9 @@
 
 #include "ConditionCommand.h"
 
+/*
+ * defines command for while execution, gets condition and list of commands to execute
+ */
 class WhileCommand : public ConditionCommand {
 
 public:
