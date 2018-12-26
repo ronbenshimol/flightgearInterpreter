@@ -60,9 +60,6 @@ bool DataWriterClient::send(string message) {
         exit(1);
     }
 
-    //TODO remove
-    //printf("%s\n", message.c_str());
-
     return true;
 }
 

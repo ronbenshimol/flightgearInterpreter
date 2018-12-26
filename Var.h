@@ -5,6 +5,9 @@
 #include "Expression.h"
 #include "SymbolsTable.h"
 
+/*
+ * var expression, holds the name of the var and return the value on execute
+ */
 class Var: public Expression {
 
     std::string name;

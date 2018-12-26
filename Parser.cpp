@@ -354,7 +354,6 @@ vector<string> Parser::removeCommas(vector<string> vec) {
 }
 
 
-// TODO create a class
 bool Parser::isProgramSavedWord(string s) {
 
     vector<string> savedWords = {OPEN_DATA_SERVER, CONNECT, ASSIGNMENT, BIND, VAR, WHILE, IF, PRINT, SLEEP,
