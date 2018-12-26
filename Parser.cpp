@@ -389,6 +389,7 @@ vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
 
         }
 
+        //for the rest of the tokens
         while (it != s.end()){
 
             //if the one token before was '-' and the second token before was operator (+/*/- etc)
