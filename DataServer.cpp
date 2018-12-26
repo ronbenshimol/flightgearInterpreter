@@ -1,5 +1,6 @@
 #include "DataServer.h"
 
+
 /* Null, because instance will be initialized on demand. */
 DataServer *DataServer::instance = 0;
 

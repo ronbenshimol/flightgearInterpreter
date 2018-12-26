@@ -5,6 +5,7 @@
 #include <string>
 #include "Utils.h"
 #include "SymbolsTable.h"
+#include "TcpServer.h"
 
 /**
  * class server.
