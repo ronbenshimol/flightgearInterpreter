@@ -55,20 +55,21 @@ int TcpServer::acceptConnection(int serverPort){
 std::string TcpServer::readLine(int socketId){
 
     std::string dataStr;
+    bool lineReaded = false;
 
-    while(true)
+    while(!lineReaded)
     {
         char buf[1];
         int numBytesRead = recv(socketId, buf, sizeof(buf), 0);
         if (numBytesRead > 0)
         {
-
                 char c = buf[0];
                 if (c == '\n')
                 {
                     if (dataStr.length() > 0)
                     {
-                        return dataStr;
+                        //the all line readed, end while
+                        lineReaded = true;
                     }
                 }
                 else dataStr += c;
@@ -76,12 +77,12 @@ std::string TcpServer::readLine(int socketId){
         }
         else
         {
-            std::cout << "Socket closed or socket error!" << std::endl;
-            break;
+            throw "Socket closed or socket error!";
         }
 
     }
 
+    return dataStr;
 }
 
 
