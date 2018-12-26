@@ -4,6 +4,9 @@
 
 #include "Expression.h"
 
+/**
+ * single number expression
+ */
 class Num : public Expression {
 
     double value;

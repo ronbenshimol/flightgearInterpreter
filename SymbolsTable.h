@@ -8,6 +8,9 @@
 #include <vector>
 #include "DataWriterClient.h"
 
+/**
+ * a struct that holds the data that a symbol may reference to
+ */
 struct SymbolData
 {
     double value;
@@ -19,6 +22,10 @@ struct SymbolData
     }
 };
 
+/**
+ * in charge of the symbol table and keeping track of symbol's values.
+ * singleton
+ */
 class SymbolsTable {
 
 private:
@@ -40,7 +47,6 @@ public:
     static SymbolsTable *getInstance();
     static void destroyInstance();
 
-    //static std::string paths[23];
     static std::vector<std::string> paths;
 
     void setSymbol(std::string symbol, double value, std::string path);

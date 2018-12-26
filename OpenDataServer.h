@@ -7,6 +7,9 @@
 #include "Command.h"
 #include <thread>
 
+/**
+ * command to open a data server connection
+ */
 class OpenDataServer : public Command {
 
     Expression *portExpression;

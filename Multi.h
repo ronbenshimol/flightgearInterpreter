@@ -4,6 +4,9 @@
 
 #include "BinaryExpression.h"
 
+/**
+ * defines * expression
+ */
 class Multi : public BinaryExpression {
 
 public:

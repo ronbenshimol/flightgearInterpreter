@@ -17,6 +17,9 @@
 
 using namespace std;
 
+/**
+ * defines a client
+ */
 class DataWriterClient {
 
 

@@ -8,6 +8,10 @@
 #include "DataWriterClient.h"
 #include "SymbolsTable.h"
 
+/**
+ * opens and connects a client to a given server and port
+ * sends info about new assignments
+ */
 class ConnectCommand : public Command {
 
     std::string serverIP;

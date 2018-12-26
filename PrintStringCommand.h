@@ -10,17 +10,16 @@
 
 using namespace std;
 
+/**
+ * defines print string command
+ */
 class PrintStringCommand : public Command {
 
     string strToPrint;
 
 public:
 // TODO change to Expression and String?
-    /**
-     * handles string
-     *
-     * @param symbol
-     */
+
     PrintStringCommand(string strToPrint) : strToPrint(move(strToPrint)) {}
 
     double execute() override {

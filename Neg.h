@@ -4,6 +4,9 @@
 
 #include "UnaryExpression.h"
 
+/**
+ * defines unary - expression
+ */
 class Neg : public UnaryExpression {
 
 public:

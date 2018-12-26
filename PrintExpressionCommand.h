@@ -9,7 +9,7 @@
 using namespace std;
 
 /**
- * receives expression to print
+ * defines print expression command
  */
 class PrintExpressionCommand : public Command {
 

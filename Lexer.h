@@ -8,7 +8,9 @@
 
 using namespace std;
 
-
+/**
+ * lexer. splits by any whitespace to different tokens
+ */
 class Lexer {
 
 

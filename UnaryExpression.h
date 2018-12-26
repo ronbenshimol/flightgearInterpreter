@@ -3,6 +3,9 @@
 
 #include "Expression.h"
 
+/**
+ * defines an unary expression
+ */
 class UnaryExpression : public Expression {
 
 protected:

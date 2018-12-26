@@ -5,7 +5,7 @@
 #include "BooleanExpression.h"
 
 /**
- * ==
+ * == expression
  */
 class Equals : public BooleanExpression {
 

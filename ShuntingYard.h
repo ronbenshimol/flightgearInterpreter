@@ -9,7 +9,9 @@
 #include <string.h>
 
 using namespace std;
-
+/**
+ * given a string in infix, converts to postfix
+ */
 class ShuntingYard {
 
 public:

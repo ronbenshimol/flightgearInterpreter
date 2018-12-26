@@ -9,7 +9,7 @@
 
 
 /**
- * receives string to print
+ * defines sleep command
  */
 class SleepCommand : public Command {
 

@@ -1,8 +1,8 @@
 #include "DataServer.h"
-#include "TcpServer.h"
 
 /* Null, because instance will be initialized on demand. */
 DataServer *DataServer::instance = 0;
+
 
 DataServer *DataServer::getInstance(int serverPort)
 {

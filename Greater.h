@@ -5,7 +5,7 @@
 #include "BooleanExpression.h"
 
 /**
- * exp1 > exp2
+ * exp1 > exp2 expression
  */
 class Greater : public BooleanExpression {
 public:

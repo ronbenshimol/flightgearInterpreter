@@ -3,6 +3,9 @@
 
 #include "BinaryExpression.h"
 
+/**
+ * divide expression
+ */
 class Div : public BinaryExpression {
 
 public:

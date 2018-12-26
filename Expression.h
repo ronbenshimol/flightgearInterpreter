@@ -1,7 +1,9 @@
 #ifndef FLIGHTGEARINTERPRETER_EXPRESSION_H
 #define FLIGHTGEARINTERPRETER_EXPRESSION_H
 
-
+/**
+ * abstract class that defines behaviour for expression
+ */
 class Expression {
 
 public:

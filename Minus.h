@@ -3,6 +3,9 @@
 
 #include "BinaryExpression.h"
 
+/**
+ * defines binary - expression
+ */
 class Minus : public BinaryExpression {
 
 public:

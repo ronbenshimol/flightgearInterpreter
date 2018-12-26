@@ -13,7 +13,9 @@
 #include <string.h>
 #include <sys/socket.h>
 
-
+/**
+ * static class for TCP server connection
+ */
 class TcpServer {
 
 

@@ -1,33 +1,15 @@
+
 #include <iostream>
+#include <fstream>
 
 #include "Lexer.h"
 #include "Parser.h"
-#include "SymbolsTable.h"
-#include <thread>
-#include <fstream>
-#include "ShuntingYard.h"
-#include "Neg.h"
-#include "Num.h"
-#include "Div.h"
-#include "Command.h"
-#include "WhileCommand.h"
-#include "Equals.h"
-#include "IfCommand.h"
-#include "Greater.h"
-#include "PrintStringCommand.h"
-#include "SleepCommand.h"
 
-
-void runScope(string scope){
-
-    Lexer lexer;
-    Parser parser;
-
-    vector<string> lexed = lexer.lexString(scope);
-    parser.parse(lexed);
-
-}
-
+/**
+ * reads all file content to string
+ * @param fileName
+ * @return string with content
+ */
 string fromFile(string fileName){
 
     std::ifstream t(fileName);
@@ -38,6 +20,12 @@ string fromFile(string fileName){
 
 }
 
+/**
+ * runs the program.
+ * @param argc num of program arguments
+ * @param argv char ** of program arguments
+ * @return status
+ */
 int main(int argc, char **argv) {
 
     Lexer lexer;

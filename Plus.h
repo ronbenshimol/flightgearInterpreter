@@ -4,6 +4,9 @@
 
 #include "BinaryExpression.h"
 
+/**
+ * defines + expression
+ */
 class Plus : public BinaryExpression {
 
 public:

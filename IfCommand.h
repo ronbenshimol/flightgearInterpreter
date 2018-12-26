@@ -5,7 +5,9 @@
 #include "ConditionCommand.h"
 
 using namespace std;
-
+/**
+ * defines if conditional command execution
+ */
 class IfCommand : public ConditionCommand {
 
 public:

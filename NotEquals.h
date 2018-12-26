@@ -4,7 +4,7 @@
 #include "BooleanExpression.h"
 
 /**
- * !=
+ * != expression
  */
 class NotEquals : public BooleanExpression {
 

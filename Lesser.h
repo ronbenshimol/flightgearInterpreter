@@ -4,7 +4,7 @@
 
 #include "BooleanExpression.h"
 /**
- * <
+ * < expression
  */
 class Lesser : public BooleanExpression {
 public:

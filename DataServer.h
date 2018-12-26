@@ -6,6 +6,11 @@
 #include "Utils.h"
 #include "SymbolsTable.h"
 
+/**
+ * class server.
+ * singleton
+ * defines connection to client and updates symbols table accordingly
+ */
 class DataServer {
 
 private:

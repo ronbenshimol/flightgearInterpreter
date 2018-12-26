@@ -9,7 +9,9 @@
 
 
 using namespace std;
-
+/**
+ * utilities static functions
+ */
 class Utils {
 
 public:
@@ -25,7 +27,11 @@ public:
     static string contentOfStringToken(string s);
     static string eraseSpaces(string s);
 
-
+    /**
+     * first element in vector will be the first in the stack
+     * @param vec
+     * @return
+     */
     static stack<string> fromVectorToStack(vector<string> vec);
 
 };
