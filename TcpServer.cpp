@@ -2,7 +2,6 @@
 
 int TcpServer::acceptConnection(int serverPort){
 
-    std::cout << "starting server.." << std::endl;
 
     int socketFd; // main socket fileDescriptor
     int newsockfd; // new socket fileDescriptor
@@ -32,16 +31,12 @@ int TcpServer::acceptConnection(int serverPort){
         exit(1);
     }
 
-    std::cout << "listening..." << std::endl;
-
     //start listening for the clients using the main socket
     listen(socketFd,5);
     clilen = sizeof(cli_addr);
 
     //accept actual connection from the client
     newsockfd = accept(socketFd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
-
-    std::cout << "connected to client!" << std::endl;
 
     //if connections with the client failed
     if (newsockfd < 0) {
