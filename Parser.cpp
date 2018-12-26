@@ -375,9 +375,7 @@ vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
         auto it = s.begin();
 
         for(; it != s.end() ; it++){
-            bool first = it > s.begin() && *(it-1) == '-' && (it-1) == s.begin();
-            bool second = it > s.begin() + 2 && Utils::isAnyOperator(*(it-3));
-            if( first || second ){
+            if(*(it-1) == '-' && ((it-1) == s.begin() || Utils::isAnyOperator(*(it-3))) ){
                 //delete the cur space by not adding him!
                 continue;
             }
@@ -388,34 +386,6 @@ vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
 
     return assuredVec;
 }
-
-
-//vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
-//
-//    vector<string> assuredVec;
-//
-//    for(auto s: expVector){
-//        string toAdd = "";
-//        auto it = s.begin();
-//
-//        for(; it != s.end() ; it++){
-//            if(*(it-1) == '-' && ((it-1) == s.begin() || Utils::isAnyOperator(*(it-3))) ){
-//                //delete the cur space by not adding him!
-//                continue;
-//            }
-//            toAdd.push_back(*it);
-//        }
-//        assuredVec.push_back(toAdd);
-//    }
-//
-//    return assuredVec;
-//}
-
-
-
-
-
-
 
 
 Expression* Parser::postfixToMathExpression(stack<string> &tokens){
