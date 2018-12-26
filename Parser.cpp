@@ -389,11 +389,17 @@ vector<string> Parser::minusDemandsAssurer(vector<string> expVector) {
 
         }
 
+        if(it != s.end()){
+
+            toAdd.push_back(*(it++));
+
+        }
+
         //for the rest of the tokens
         while (it != s.end()){
 
             //if the one token before was '-' and the second token before was operator (+/*/- etc)
-            if(Utils::isAnyOperator(*(it-2)) && *(it-1) == '-' ){
+            if(Utils::isAnyOperator(*(it-3)) && *(it-1) == '-' ){
                 it++;//skip the current token as it is ' ' (space)
             } else{
                 toAdd.push_back(*(it));
