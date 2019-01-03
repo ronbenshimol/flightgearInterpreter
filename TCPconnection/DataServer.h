@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include "Utils.h"
-#include "SymbolsTable.h"
+#include "../Utilities/Utils.h"
+#include "../interpreter/SymbolsTable.h"
 #include "TcpServer.h"
 
 /**

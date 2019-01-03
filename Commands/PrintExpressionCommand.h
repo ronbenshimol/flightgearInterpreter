@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "Command.h"
-#include "Expression.h"
+#include "../Expressions/Expression.h"
 
 using namespace std;
 

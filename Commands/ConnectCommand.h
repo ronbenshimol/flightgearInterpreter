@@ -4,9 +4,9 @@
 
 #include <string>
 #include "Command.h"
-#include "Expression.h"
-#include "DataWriterClient.h"
-#include "SymbolsTable.h"
+#include "../Expressions/Expression.h"
+#include "../TCPconnection/DataWriterClient.h"
+#include "../interpreter/SymbolsTable.h"
 
 /**
  * opens and connects a client to a given server and port

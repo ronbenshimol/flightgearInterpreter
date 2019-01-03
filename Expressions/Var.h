@@ -3,7 +3,7 @@
 
 #include <string>
 #include "Expression.h"
-#include "SymbolsTable.h"
+#include "../interpreter/SymbolsTable.h"
 
 /*
  * var expression, holds the name of the var and return the value on execute

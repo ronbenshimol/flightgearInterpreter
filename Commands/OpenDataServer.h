@@ -1,9 +1,9 @@
 #ifndef FLIGHTGEARINTERPRETER_OPENDATASERVER_H
 #define FLIGHTGEARINTERPRETER_OPENDATASERVER_H
 
-#include "BinaryExpression.h"
-#include "DataServer.h"
-#include "SymbolsTable.h"
+#include "../Expressions/BinaryExpression.h"
+#include "../TCPconnection/DataServer.h"
+#include "../interpreter/SymbolsTable.h"
 #include "Command.h"
 #include <thread>
 

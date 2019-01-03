@@ -8,8 +8,8 @@
 
 #include <string>
 #include "Command.h"
-#include "Expression.h"
-#include "SymbolsTable.h"
+#include "../Expressions/Expression.h"
+#include "../interpreter/SymbolsTable.h"
 
 using namespace std;
 

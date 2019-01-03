@@ -4,7 +4,7 @@
 
 #include <vector>
 #include "Command.h"
-#include "BooleanExpression.h"
+#include "../Expressions/BooleanExpression.h"
 
 
 using namespace std;

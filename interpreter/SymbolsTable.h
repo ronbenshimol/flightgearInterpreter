@@ -6,7 +6,7 @@
 #include <map>
 #include <iostream>
 #include <vector>
-#include "DataWriterClient.h"
+#include "../TCPconnection/DataWriterClient.h"
 
 /**
  * a struct that holds the data that a symbol may reference to

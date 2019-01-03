@@ -5,8 +5,8 @@
 #include <string>
 #include <iostream>
 #include "Command.h"
-#include "Utils.h"
-#include "SymbolsTable.h"
+#include "../Utilities/Utils.h"
+#include "../interpreter/SymbolsTable.h"
 
 using namespace std;
 

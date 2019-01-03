@@ -2,8 +2,8 @@
 #include <iostream>
 #include <fstream>
 
-#include "Lexer.h"
-#include "Parser.h"
+#include "interpreter/Lexer.h"
+#include "interpreter/Parser.h"
 
 /**
  * reads all file content to string
